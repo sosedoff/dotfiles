@@ -1,0 +1,35 @@
+[user]
+	name = Dan Sosedoff
+	email = dan.sosedoff@gmail.com
+
+[github]
+	user = sosedoff
+
+[apply]
+	whitespace = nowarn
+
+[core]
+	editor = nano
+
+[alias]
+	co = checkout
+	ct = checkout -t
+	ci = commit -v
+	ca = commit -av
+	st = status -sb
+	up = pull
+	track = !git-track
+	prune-all = !git-prune-all
+
+[apply]
+	whitespace = nowarn
+
+[branch]
+	autosetupmerge = true
+
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+[push]
+	default = tracking
