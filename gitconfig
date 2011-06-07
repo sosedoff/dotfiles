@@ -1,24 +1,24 @@
 [user]
-	name = Dan Sosedoff
-	email = dan.sosedoff@gmail.com
+  name = Dan Sosedoff
+  email = dan.sosedoff@gmail.com
 
 [github]
-	user = sosedoff
+  user = sosedoff
 
 [apply]
-	whitespace = nowarn
+  whitespace = nowarn
 
 [core]
-	editor = nano
+  editor = nano
 
 [alias]
-	co = checkout
-	ct = checkout -t
-	ci = commit -v
-	ca = commit -av
-	st = status -sb
-	up = pull
-	track = !git-track
+  co = checkout
+  ct = checkout -t
+  ci = commit -v
+  ca = commit -av
+  st = status -sb
+  up = pull
+  track = !git-track
 	prune-all = !git-prune-all
 
 [apply]
