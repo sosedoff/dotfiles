@@ -19,17 +19,18 @@
   st = status -sb
   up = pull
   track = !git-track
-	prune-all = !git-prune-all
+  prune-all = !git-prune-all
 
 [apply]
-	whitespace = nowarn
+  whitespace = nowarn
 
 [branch]
-	autosetupmerge = true
+  autosetupmerge = true
 
 [color]
-	branch = auto
-	diff = auto
-	status = auto
+  branch = auto
+  diff = auto
+  status = auto
+
 [push]
-	default = tracking
+  default = tracking
