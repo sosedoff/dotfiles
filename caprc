@@ -1,1 +1,5 @@
-require 'capistrano_colors'
+begin
+  require 'capistrano_colors'
+rescue LoadError
+  puts "### CAPISTRANO COLORS GEM IS NOT INSTALLED! ###"
+end
