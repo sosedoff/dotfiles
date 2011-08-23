@@ -1,3 +1,5 @@
+export PATH=$PATH:$HOME/bin
+
 # Terminal options
 #
 if [[ `whoami` == "root" ]]; then
