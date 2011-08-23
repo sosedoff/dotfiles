@@ -1,0 +1,188 @@
+#!/usr/bin/env ruby
+
+require 'pp'
+require 'date'
+require 'time'
+
+def parse_git_log(data)
+  lines = data.strip.split("\n").select { |l| l.strip.length > 0 }
+  lines = lines.map { |l| l.strip.split("|") }
+  lines.map { |l| {:id => l[0], :date => Time.parse(l[1]), :message => l[2], :author => l[3]} }
+end
+
+class Template
+  REGEX = /(\{\{([a-z\-\_]{1,})\}\})/i
+  
+  # Initialize Template object with a string template
+  def initialize(content)
+    @template = content.strip.to_s
+    raise ArgumentError, "Template content required!" if @template.empty?
+  end
+  
+  # Render template
+  #   params - Hash of parameters.
+  #            Each params in template should be wrapped with {{var}}. 
+  def render(params={})
+    params.stringify_keys!
+    @template.gsub(REGEX) do |m|
+      key = m.scan(REGEX).flatten.last.to_s
+      m = params[key]
+    end
+  end
+end
+
+class Hash
+  unless method_defined?(:stringify_keys)
+    def stringify_keys!
+      keys.each do |key|
+        self[key.to_s] = delete(key)
+      end
+      self
+    end
+    
+    def stringify_keys
+      dup.stringify_keys!
+    end
+  end
+end
+
+TEMPLATE = <<END_TEMPLATE
+<!DOCTYPE html> 
+<html>
+  <head>
+    <title>{{title}}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+    <style>{{css}}</style>
+  </head>
+  <body>
+    <div id="content">{{content}}</div>
+  </body>
+</html>
+END_TEMPLATE
+
+CSS = <<END_CSS
+body {
+    background: #f8f8f8;
+    font: 13.34px helvetica,arial,freesans,clean,sans-serif;
+  }
+  
+  body * { line-height: 1.4em; }
+  
+  a { color: #4183C4; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  
+  #content {
+    width: 800px; margin: 0px auto;
+  }
+  
+  .clear { clear: both; }
+  
+  p {
+    margin: 1em 0!important;
+    line-height: 1.5em!important;
+  }
+  
+  h1, h2, h3, h4, h5, h6 { border: 0 !important; }
+  
+  h1 {
+    font-size: 170%!important;
+    border-top: 4px solid #AAA!important;
+    padding-top: .5em!important;
+    margin-top: 1.5em!important;
+  }
+  
+  h1:first-child { border-top: none !important; }
+  
+  h2 { 
+    font-size: 150% !important;
+    margin-top: 1.5em !important;
+    border-top: 4px solid #E0E0E0 !important;
+    padding-top: .5em !important;
+  }
+  
+  h3 { margin-top: 1em !important; }
+  
+  pre, code {
+    font: 12px 'Bitstream Vera Sans Mono','Courier',monospace;
+  }
+  
+  pre {
+    margin: 1em 0;
+    font-size: 12px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    padding: 5px;
+    line-height: 1.5em;
+    color: #444;
+    overflow: auto;
+    -webkit-box-shadow: rgba(0,0,0,0.07) 0 1px 2px inset;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
+  
+  code {
+    font-size: 12px !important;
+    background-color: ghostWhite !important;
+    color: #444 !important;
+    padding: 0 .2em !important;
+    border: 1px solid #DEDEDE !important;
+  }
+  
+  pre code {
+    padding: 0!important;
+    font-size: 12px!important;
+    background-color: #EEE!important;
+    border: none!important;
+  }
+  
+  .commits { padding: 0px; background: #fff; border: 1px solid #ccc; }
+  .commits .group {
+    font-weight: bold; padding: 4px 8px;
+    background: #eee;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#eeeeee',endColorstr='#d4d4d4');
+  background: -webkit-gradient(linear,left top,left bottom,from(#eeeeee),to(#d4d4d4));
+  background: -moz-linear-gradient(top,#eeeeee,#d4d4d4);
+    text-shadow: #fff 0px 1px 0px;
+  }
+  .commit { padding: 4px 8px; border-bottom: 1px solid #ddd; }
+  .commit span.time { display: inline-block; font-size: 11px; padding-right: 8px; margin-right: 8px; color: #777; border-right: 1px dotted #ddd; }
+  .commit span.message { display: inline-block; }
+  .commit span.author { display: inline-block; float: right; font-size: 11px; color: #999; }
+END_CSS
+
+
+
+buffer = `git log --all --format="%h|%ci|%s|%cn"`
+commits = parse_git_log(buffer)
+
+last_date = nil
+html = "<div class='commits'>"
+commits.each do |c|
+  if c[:date].strftime("%d-%m-%Y") != last_date || last_date.nil?
+    html << "<div class='group'>#{c[:date].strftime("%B %d, %Y")}</div>"
+    last_date = c[:date].strftime("%d-%m-%Y")
+  end
+  
+  html << "<div class='commit'>"
+  html << "<span class='time'>#{c[:date].strftime("%I:%M %P")}</span>"
+  html << "<span class='message'>#{c[:message]}</span>"
+  html << "<span class='author'>#{c[:author]}</span>"
+  html << "</div>"
+  html << "<div class='clear'></div>"
+end
+html << "</div>"
+
+repo_name = ARGV.shift
+unless repo_name.nil?
+  header = "<h1>Commits Report: #{repo_name}</h1>"  
+else
+  header = "<h1>Commits Report</h1>"
+end
+
+header << "<p>Generated on #{Time.now.to_s}</p>"
+header << "<p>Total commits: #{commits.size}</p>"
+
+html = header + html
+main = Template.new(TEMPLATE)
+puts main.render(:content => html, :title => "Commits Report", :css => CSS)
