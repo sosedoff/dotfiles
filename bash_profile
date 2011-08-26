@@ -24,6 +24,15 @@ alias 187='rvm use 1.8.7'
 alias 192='rvm use 1.9.2'
 alias ree='rvm use ree'
 
+# Some other dev-related aliases
+#
+alias b="bundle"
+alias be="bundle exec"
+alias bi="bundle install"
+alias bu="bundle update"
+
+alias r='rake'
+
 # Rails stuff
 #
 alias rs="rails server thin"
