@@ -1,0 +1,13 @@
+rake
+bundler
+capistrano
+capistrano_colors
+capistrano-ext
+lunchy
+thin
+shotgun
+foreman
+rspec
+docify
+snatch
+heroku
