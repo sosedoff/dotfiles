@@ -1,3 +1,4 @@
+desc 'Install all dotfiles'
 task :install do
   home = ENV['HOME']
   skip_files = %w(Rakefile)
