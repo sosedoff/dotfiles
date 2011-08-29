@@ -1,7 +1,7 @@
 desc 'Install all dotfiles'
 task :install do
   home = ENV['HOME']
-  skip_files = %w(Rakefile)
+  skip_files = %w(Rakefile README.md)
 
   Dir.chdir File.dirname(__FILE__) do
     dotfiles_dir = Dir.pwd.sub(home + '/', '')
