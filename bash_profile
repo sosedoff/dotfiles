@@ -15,6 +15,10 @@ alias la='ls -la'
 alias '..'='cd .. && echo "--> now at: $(pwd)"'
 alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy && echo "Public key was copied into the clipboard."'
 
+alias gs='git st'
+alias gd='git diff'
+alias gl='git log'
+
 # RVM Stuff
 #
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
