@@ -13,9 +13,11 @@ task :install do
       target_name = file == 'bin' ? file : ".#{file}"
       target = File.join(home, target_name)
       
-      unless File.exist? target
-        system %[ln -vsf #{File.join(dotfiles_dir, file)} #{target}]
+      if File.exists?(target)
+        system %[unlink #{target}]
       end
+      
+      system %[ln -vsf #{File.join(dotfiles_dir, file)} #{target}]
     end
   end
 end
