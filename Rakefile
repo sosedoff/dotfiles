@@ -18,3 +18,13 @@ task :install do
     end
   end
 end
+
+desc 'Install default gems'
+task :gems do
+  puts "Installing default gems..."
+  File.readlines('default_gems').each do |gem|
+    gem_name = gem.strip
+    puts " -> #{gem_name}"
+    `gem install #{gem_name}`
+  end
+end
