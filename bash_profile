@@ -25,7 +25,8 @@ alias gl='git log'
 
 alias 186='rvm use 1.8.6'
 alias 187='rvm use 1.8.7'
-alias 192='rvm use 1.9.2'
+alias 192='rvm use 1.9.2-p290'
+alias 193='rvm use 1.9.2-rc1'
 alias ree='rvm use ree'
 
 # Some other dev-related aliases
