@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+command = ARGV.shift || 'start'
+services = %w(mysql postgres mongo redis)
+lunchy = `which lunchy`.strip
+unless lunchy.empty?
+  services.each do |s|
+    puts "-> #{command} #{s}"
+    `#{lunchy} #{command} #{s}`
+  end
+else
+  $strerr.puts "Lunchy is not installed! Run 'gem install lunchy'."
+end
+  
