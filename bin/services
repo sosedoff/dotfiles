@@ -9,6 +9,6 @@ unless lunchy.empty?
     `#{lunchy} #{command} #{s}`
   end
 else
-  $strerr.puts "Lunchy is not installed! Run 'gem install lunchy'."
+  $stderr.puts "Lunchy is not installed! Run 'gem install lunchy'."
 end
   
