@@ -4,6 +4,11 @@ command = ARGV.shift || 'start'
 services = %w(mysql postgres mongo redis)
 lunchy = `which lunchy`.strip
 unless lunchy.empty?
+  unless %w(start stop).include?(command)
+    $stderr.puts "Invalid command. Valid commands: start, stop."
+    exit(1)
+  end
+
   services.each do |s|
     puts "-> #{command} #{s}"
     `#{lunchy} #{command} #{s}`
