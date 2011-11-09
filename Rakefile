@@ -31,3 +31,11 @@ task :gems do
     `gem install #{gem_name}`
   end
 end
+
+desk 'Install rubies'
+task :rubies do
+  %(1.8.7 1.9.2 1.9.3 ree rbx).each do |r|
+    puts "Installing #{r}"
+    `rvm install #{r}`
+  end
+end
