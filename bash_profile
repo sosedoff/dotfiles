@@ -18,6 +18,7 @@ alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy && echo "Public key was copied int
 alias gs='git st'
 alias gd='git diff'
 alias gl='git log'
+alias gp='git push'
 
 # RVM Stuff
 #
@@ -42,3 +43,6 @@ alias r='rake'
 #
 alias rs="rails server thin"
 alias rc="rails console"
+
+# Other stuff
+alias "please"="sudo"
