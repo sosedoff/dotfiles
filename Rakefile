@@ -43,10 +43,10 @@ end
 desc 'Install Sublime Text 2 settings'
 task :sublime_text2 do
   source_path = File.join(ENV['HOME'], '.sublime_text2', 'Preferences.sublime-settings')
-  target_path = File.expand_path("~/Library/Application Support/Sublime Text 2/Packages/User")
+  target_path = File.expand_path("~/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings")
 
   if File.exists?(target_path)
-    system %w[unlink #{target_path}]
+    system %[unlink \"#{target_path}\"]
   end
 
   Dir.chdir File.dirname(__FILE__) do
