@@ -1,0 +1,15 @@
+#!/bin/sh
+if [ -z "$1" ]
+then
+  rev="HEAD"
+else
+  rev=$1
+fi
+wd=`pwd`
+basepath=`basename $wd`
+desc=$(git describe --always "$rev")
+prefix="$basepath-$desc"
+
+echo "Creating archive $prefix.tar.gz..."
+git archive --format=tar --prefix="$prefix/" "$rev" | gzip > "$prefix.tar.gz"
+echo "Done."
