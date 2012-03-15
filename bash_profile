@@ -1,12 +1,5 @@
 export PATH=$PATH:$HOME/bin
-
-# Terminal options
-#
-if [[ `whoami` == "root" ]]; then
-  PS1="# "
-else
-  PS1="$ "
-fi
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 # Shell aliases
 #
@@ -15,19 +8,19 @@ alias la='ls -la'
 alias '..'='cd .. && echo "--> now at: $(pwd)"'
 alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy && echo "Public key was copied into the clipboard."'
 
+# Git aliases
+#
 alias gs='git st'
 alias gd='git diff'
 alias gl='git log'
 alias gp='git push'
 
-# RVM Stuff
+# Ruby versions aliases
 #
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
 alias 186='rvm use 1.8.6'
 alias 187='rvm use 1.8.7'
 alias 192='rvm use 1.9.2-p290'
-alias 193='rvm use 1.9.2-rc1'
+alias 193='rvm use 1.9.3-p125'
 alias ree='rvm use ree'
 
 # Some other dev-related aliases
@@ -36,7 +29,6 @@ alias b="bundle"
 alias be="bundle exec"
 alias bi="bundle install"
 alias bu="bundle update"
-
 alias r='rake'
 
 # Rails stuff
@@ -45,4 +37,19 @@ alias rs="rails server thin"
 alias rc="rails console"
 
 # Other stuff
+#
 alias "please"="sudo"
+
+# ------------------------------------------------------------------------------
+
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+# Terminal options
+#
+if [[ `whoami` == "root" ]]; then
+  PS1="# "
+else
+  PS1="\w\[\e[0;33;49m\]\$(parse_git_branch)\[\e[0;0m\]$ "
+fi
