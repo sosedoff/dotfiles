@@ -42,8 +42,9 @@ end
 
 desc 'Install Sublime Text 2 settings'
 task :sublime_text2 do
+  root_path   = File.expand_path('~/Library/Application Support/Sublime Text 2')
   source_path = File.join(ENV['HOME'], '.sublime_text2', 'Preferences.sublime-settings')
-  target_path = File.expand_path("~/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings")
+  target_path = File.join(root_path, 'Packages/User/Preferences.sublime-settings')
 
   if File.exists?(target_path)
     system %[unlink \"#{target_path}\"]
@@ -51,5 +52,10 @@ task :sublime_text2 do
 
   Dir.chdir File.dirname(__FILE__) do
     system %[ln -vsf #{source_path} \"#{target_path}\"]
+  end
+
+  # Install Soda themes
+  Dir.chdir File.join(root_path, 'Packages') do
+    system('git clone https://github.com/buymeasoda/soda-theme/ "Theme - Soda"')
   end
 end
