@@ -12,6 +12,8 @@ console.log("Static server on port " + port + " => " + root_path);
 
 var file = new(static.Server)(root_path);
 http.createServer(function (request, response) {
+  var info = " -> " + request.method + " " + request.url;
+  console.log(info);
   request.addListener('end', function () {
     file.serve(request, response);
   });
