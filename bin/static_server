@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+var static = require('node-static'),
+    argv   = require('optimist').argv,
+    http   = require('http');
+
+var root_path = argv.path || './';
+var port = parseInt(argv.port || '4000');
+
+console.log("Static server on port " + port + " => " + root_path);
+
+var file = new(static.Server)(root_path);
+http.createServer(function (request, response) {
+  request.addListener('end', function () {
+    file.serve(request, response);
+  });
+}).listen(port);
