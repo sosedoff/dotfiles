@@ -1,4 +1,6 @@
 export PATH=$PATH:$HOME/bin
+export PATH=/usr/local/bin:$PATH
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 # Shell aliases
