@@ -14,7 +14,7 @@ alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy && echo "Public key was copied int
 #
 alias gs='git st'
 alias gd='git diff'
-alias gl='git log'
+alias gl='git sl'
 alias gp='git push'
 
 # Ruby versions aliases
