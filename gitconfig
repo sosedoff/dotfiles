@@ -17,6 +17,7 @@
   ci = commit -v
   ca = commit -av
   st = status -sb
+  sl = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   up = pull
   track = !git-track
   prune-all = !git-prune-all
