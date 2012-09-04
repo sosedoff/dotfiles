@@ -1,30 +1,30 @@
 desc 'Install all dotfiles'
-task :install do
+task :dotfiles do
+  puts "Installing DOT files..."
   home = ENV['HOME']
-  skip_files = %w(Rakefile README.md)
+  dotfiles_dir = "#{File.dirname(__FILE__)}/dotfiles"
+  Dir["#{dotfiles_dir}/*"].each do |file|
+    link_path = File.join(home, ".#{File.basename(file)}")
+    system %x[unlink #{link_path}] if File.exists?(link_path)
+    system %[ln -vsf #{file} #{link_path}]
+  end
+end
 
-  Dir.chdir File.dirname(__FILE__) do
-    dotfiles_dir = Dir.pwd.sub(home + '/', '')
-    
-    Dir['*'].each do |file|
-      next if skip_files.include?(file)
-      next unless File.extname(file).empty?
-      
-      target_name = file == 'bin' ? file : ".#{file}"
-      target = File.join(home, target_name)
-      
-      if File.exists?(target)
-        system %[unlink #{target}]
-      end
-      
-      system %[ln -vsf #{File.join(dotfiles_dir, file)} #{target}]
-    end
+desc 'Install all bin files'
+task :binfiles do
+  puts "Installing BIN files..."
+  home = ENV['HOME']
+  binfiles_dir = "#{File.dirname(__FILE__)}/bin"
+  Dir["#{binfiles_dir}/*"].each do |file|
+    link_path = File.join(home, File.basename(file))
+    system %x[unlink #{link_path}] if File.exists?(link_path)
+    system %[ln -vsf #{file} #{link_path}]
   end
 end
 
 desc 'Install default gems'
 task :gems do
-  puts "Installing default gems..."
+  puts "Installing GEM files..."
   File.readlines('default_gems').each do |gem|
     gem_name = gem.strip
     puts " -> #{gem_name}"
@@ -32,7 +32,7 @@ task :gems do
   end
 end
 
-desc 'Install rubies'
+desc 'Install multiple ruby versions'
 task :rubies do
   %(1.8.7 1.9.2 1.9.3 ree rbx).each do |r|
     puts "Installing #{r}"
@@ -41,7 +41,7 @@ task :rubies do
 end
 
 desc 'Install Sublime Text 2 settings'
-task :sublime_text2 do
+task :st2 do
   root_path   = File.expand_path('~/Library/Application Support/Sublime Text 2')
   source_path = File.join(ENV['HOME'], '.sublime_text2', 'Preferences.sublime-settings')
   target_path = File.join(root_path, 'Packages/User/Preferences.sublime-settings')
@@ -58,4 +58,10 @@ task :sublime_text2 do
   Dir.chdir File.join(root_path, 'Packages') do
     system('git clone https://github.com/buymeasoda/soda-theme/ "Theme - Soda"')
   end
+end
+
+desc 'Install default configuration'
+task :install do
+  Rake::Task['dotfiles'].invoke
+  Rake::Task['binfiles'].invoke
 end

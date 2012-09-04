@@ -16,6 +16,7 @@ alias gs='git st'
 alias gd='git diff'
 alias gl='git sl'
 alias gp='git push'
+alias master='git checkout master'
 
 # Ruby versions aliases
 #
