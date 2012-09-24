@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+path = File.expand_path('~/Dropbox/.activity')
+unless File.exists?(path)
+  STDERR.puts "Output file does not exist. Creating."
+  `touch #{path}`
+end
+
+action = ARGV.join(' ').strip
+
+if action.empty?
+  STDERR.print "No activity provided. Please enter: "
+  action = STDIN.gets.strip
+end
+
+if action.empty?
+  STDERR.puts "Activity required. Exit."
+  exit 1
+end
+
+File.open(path, 'a') do |f|
+  f.puts("[#{Time.now.to_s}] #{action}")
+end
