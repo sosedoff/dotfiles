@@ -23,6 +23,7 @@
   prune-all = !git-prune-all
   r = remote -v
   b = branch -v
+  rh = reset --hard
 
 [apply]
   whitespace = nowarn
