@@ -35,3 +35,6 @@
 
 [push]
   default = tracking
+
+[gc]
+  auto = 1

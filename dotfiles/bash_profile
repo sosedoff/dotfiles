@@ -56,3 +56,6 @@ if [[ `whoami` == "root" ]]; then
 else
   PS1="\w\[\e[0;33;49m\]\$(parse_git_branch)\[\e[0;0m\]$ "
 fi
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
