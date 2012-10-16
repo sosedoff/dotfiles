@@ -21,6 +21,8 @@
   up = pull
   track = !git-track
   prune-all = !git-prune-all
+  r = remote -v
+  b = branch -v
 
 [apply]
   whitespace = nowarn
