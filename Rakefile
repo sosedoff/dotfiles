@@ -40,28 +40,30 @@ task :rubies do
   end
 end
 
-desc 'Install Sublime Text 2 settings'
-task :st2 do
-  root_path   = File.expand_path('~/Library/Application Support/Sublime Text 2')
-  source_path = File.join(ENV['HOME'], '.sublime_text2', 'Preferences.sublime-settings')
-  target_path = File.join(root_path, 'Packages/User/Preferences.sublime-settings')
-
-  if File.exists?(target_path)
-    system %[unlink \"#{target_path}\"]
-  end
-
-  Dir.chdir File.dirname(__FILE__) do
-    system %[ln -vsf #{source_path} \"#{target_path}\"]
-  end
-
-  # Install Soda themes
-  Dir.chdir File.join(root_path, 'Packages') do
-    system('git clone https://github.com/buymeasoda/soda-theme/ "Theme - Soda"')
-  end
-end
-
 namespace :sublime do
-  desc 'Install custom Sublime Text 2 themes'
+  desc 'Install ST2 settings'
+  task :settings do
+    root_path   = File.expand_path('~/Library/Application Support/Sublime Text 2')
+    source_path = File.join(ENV['HOME'], '.sublime_text2', 'Preferences.sublime-settings')
+    target_path = File.join(root_path, 'Packages/User/Preferences.sublime-settings')
+
+    # Unlink current settings
+    if File.exists?(target_path)
+      system %[unlink \"#{target_path}\"]
+    end
+
+    # Link new settings
+    Dir.chdir File.dirname(__FILE__) do
+      system %[ln -vsf #{source_path} \"#{target_path}\"]
+    end
+
+    # Install Soda theme
+    Dir.chdir File.join(root_path, 'Packages') do
+      system('git clone https://github.com/buymeasoda/soda-theme/ "Theme - Soda"')
+    end
+  end
+
+  desc 'Install custom ST2 themes'
   task :themes do
     repo   = 'git://github.com/daylerees/colour-schemes.git'
     path   = File.join(ENV['HOME'], '.sublime-themes')
