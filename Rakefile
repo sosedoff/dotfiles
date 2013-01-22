@@ -60,6 +60,23 @@ task :st2 do
   end
 end
 
+namespace :sublime do
+  desc 'Install custom Sublime Text 2 themes'
+  task :themes do
+    repo   = 'git://github.com/daylerees/colour-schemes.git'
+    path   = File.join(ENV['HOME'], '.sublime-themes')
+    target = File.expand_path('~/Library/Application Support/Sublime Text 2/Packages/Custom Themes')
+
+    # Clone or update themes repository
+    system %[git clone #{repo} #{path}] if !File.exists?(path)
+    system %[cd #{path} && git pull]
+
+    # Link to Sublime home dir
+    system %[unlink \"#{target}\"] if File.exists?(target)
+    system %[ln -vsf #{path} \"#{target}\"]
+  end
+end
+
 desc 'Install default configuration'
 task :install do
   Rake::Task['dotfiles'].invoke
