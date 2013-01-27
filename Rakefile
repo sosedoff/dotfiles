@@ -14,14 +14,17 @@ end
 
 desc 'Install all bin files'
 task :binfiles do
-  puts "Installing BIN files..."
-  home = ENV['HOME']
-  binfiles_dir = "#{File.dirname(__FILE__)}/bin"
-  Dir["#{binfiles_dir}/*"].each do |file|
-    link_path = File.join(home, File.basename(file))
-    system %x[unlink #{link_path}] if File.exists?(link_path)
-    system %[ln -vsf #{file} #{link_path}]
+  source_path = File.join(File.dirname(__FILE__), 'bin')
+  target_path = File.join(ENV['HOME'], '.bin')
+
+  if File.exists?(target_path)
+    puts "Unlinking installed bin directory"
+    system %[unlink #{target_path}]
   end
+
+  puts "Installing new bin directory"
+  puts "ln -vsf #{source_path} #{target_path}"
+  system %[ln -vsf #{source_path} #{target_path}]
 end
 
 desc 'Install default gems'

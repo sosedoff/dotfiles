@@ -1,7 +1,8 @@
-export PATH=$PATH:$HOME/bin
+# Path exports
+#
+export PATH=$PATH:$HOME/.bin
 export PATH=/usr/local/bin:$PATH
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+export PATH=/usr/local/heroku/bin:$PATH
 
 # Shell aliases
 #
@@ -56,6 +57,10 @@ else
   PS1="\w\[\e[0;33;49m\]\$(parse_git_branch)\[\e[0;0m\]$ "
 fi
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-[[ -s /Users/sosedoff/.nvm/nvm.sh ]] && . /Users/sosedoff/.nvm/nvm.sh # This loads NVM
+# ------------------------------------------------------------------------------
+
+# Load RVM (Ruby version manager)
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+# Load NVM (Node version manager)
+[[ -s /Users/sosedoff/.nvm/nvm.sh ]] && . /Users/sosedoff/.nvm/nvm.sh
