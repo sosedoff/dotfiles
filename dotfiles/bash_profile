@@ -58,3 +58,4 @@ fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+[[ -s /Users/sosedoff/.nvm/nvm.sh ]] && . /Users/sosedoff/.nvm/nvm.sh # This loads NVM
