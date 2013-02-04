@@ -33,6 +33,7 @@ alias be="bundle exec"
 alias bi="bundle install"
 alias bu="bundle update"
 alias r='rake'
+alias v="vagrant"
 
 # Rails stuff
 #
