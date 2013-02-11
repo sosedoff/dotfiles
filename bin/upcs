@@ -1,0 +1,416 @@
+#!/bin/bash
+# Author: Chmouel Boudjnah <chmouel.boudjnah@rackspace.co.uk>
+# Not officially supported by Rackspace only as a best effort basis :)
+UPCS_VERSION=1.8
+
+# Define yes to make it to copy to url to clipboard (via a shortened url
+# service) You need to have the software xclip installed in your system.
+COPY_URL_TO_CLIPBOARD=yes
+
+# Containers to ignore in the list
+CONTAINERS_TO_IGNORE=".CDN_ACCESS_LOGS"
+
+# Auth Server (change it if you have a custom swift install)
+AUTH_SERVER_LON=https://lon.auth.api.rackspacecloud.com/v1.0
+AUTH_SERVER_US=https://auth.api.rackspacecloud.com/v1.0
+DEFAULT_AUTH_SERVER=${AUTH_SERVER_US}
+
+# Just isgd for now (google service is not working well)
+SHORT_URL_SERVICE="isgd"
+
+# Set it to true if you want to use servicenet to upload.
+SERVICENET=false
+
+# Make it quiet or not
+QUIET=false
+
+function ask_question {
+    question=$1
+    read -p "$question: "
+    echo $REPLY
+}
+
+function msg {
+    echo $1
+}
+
+
+function get_api_key {
+    RCLOUD_API_USER=$(ask_question "Rackspace Cloud Username" "Enter Username"  200 50)
+    [[ -z $RCLOUD_API_USER ]] && exit 1 #press cancel
+    RCLOUD_API_KEY=$(ask_question "Rackspace Cloud API Key" "Enter API Key"  200 50)
+
+    LOCATION=$(ask_question "Location US/UK (default: US)" "Enter Location" 200 50)
+    
+    if [[ $LOCATION == "uk" || $LOCATION == "UK" ]];then
+        AUTH_SERVER=$AUTH_SERVER_LON
+    elif [[ ${LOCATION} == http://** ]];then
+        AUTH_SERVER=${LOCATION}
+    else 
+        AUTH_SERVER=$AUTH_SERVER_US
+    fi
+
+    [[ -n ${RCLOUD_API_KEY} && -n ${RCLOUD_API_USER} ]] || {
+        msg "You have not specified a Rackspace Cloud username or API key" "Missing Username/API Key" 200 25
+        exit 1;
+    }
+    check_api_key
+    mkdir -p ${HOME}/.config/rackspace-cloud
+    chmod 700 ${HOME}/.config/rackspace-cloud
+    echo "RCLOUD_API_USER=${RCLOUD_API_USER}" > ${HOME}/.config/rackspace-cloud/config
+    echo "RCLOUD_API_KEY=${RCLOUD_API_KEY}" >> ${HOME}/.config/rackspace-cloud/config
+    echo "AUTH_SERVER=${AUTH_SERVER}" >> ${HOME}/.config/rackspace-cloud/config
+		chmod 600 ${HOME}/.config/rackspace-cloud/config
+}
+
+function check_api_key {
+    temp_file=$(mktemp /tmp/.rackspace-cloud.XXXXXX)
+    local good_key=
+    [[ -z ${AUTH_SERVER} ]] && AUTH_SERVER=${DEFAULT_AUTH_SERVER}
+
+    curl -k -s -f -D - \
+        -H "X-Auth-Key: ${RCLOUD_API_KEY}" \
+        -H "X-Auth-User: ${RCLOUD_API_USER}" \
+        ${AUTH_SERVER} >${temp_file} && good_key=1
+
+    if [[ -z $good_key ]];then
+        msg "You have a bad username or api/key." "Bad Username/API Key" 200 25
+        exit 1;
+    fi
+
+    while read line;do
+        [[ $line != X-* ]] && continue
+        line=${line#X-}
+        key=${line%: *};key=${key//-/}
+        value=${line#*: }
+        value=$(echo ${value}|tr -d '\r')
+        eval "export $key=$value"
+    done < ${temp_file}
+
+    if [[ -z ${StorageUrl} ]];then
+        echo "Invalid auth url."
+        exit 1
+    fi
+
+    
+    if [[ ${SERVICENET} == true || ${SERVICENET} == True || ${SERVICENET} == TRUE ]];then
+        StorageUrl=${StorageUrl/https:\/\//https://snet-}
+        StorageUrl=${StorageUrl/http:\/\//http://snet-}
+    fi
+
+    rm -f ${temp_file}
+}
+
+function create_container {
+    local container=$1
+
+    if [[ -z $container ]];then
+        msg "You need to specify a container name" "Need a container name" 200 25
+        exit 1;
+    fi
+
+    created=
+    curl -o/dev/null -s -f -k -X PUT \
+        -H "X-Auth-Token: ${AuthToken}" \
+        ${StorageUrl}/${container} && created=1
+
+    if [[ -z $created ]];then
+        msg "Cannot create container name ${container}" "Cannot create container" 200 25
+        return 1;
+    else
+        echo "container ${container} has been created"
+    fi
+}
+
+function shorten_url() {
+    url=$1
+    _surl=$(curl -s "http://is.gd/api.php?longurl=${url}")
+    if [[ -n ${_surl} ]];then
+        echo ${_surl}|tr -d '\r'|tr -d '\n'
+    fi
+}
+
+function put_object {
+    local container=$1
+    local file=$(python -c 'import os,sys;print os.path.realpath(sys.argv[1])' $2)
+    local dest_name=$3
+    if [[ -n $3 ]];then
+        object=$3
+    else
+        object=${file}
+    fi
+    object=$(basename ${object})
+    #url encode in sed yeah i am not insane i have googled that
+    object=$(echo $object|sed -e 's/%/%25/g;s/ /%20/g;s/ /%09/g;s/!/%21/g;s/"/%22/g;s/#/%23/g;s/\$/%24/g;s/\&/%26/g;s/'\''/%27/g;s/(/%28/g;s/)/%29/g;s/\*/%2a/g;s/+/%2b/g; s/,/%2c/g; s/-/%2d/g; s/\./%2e/g; s/:/%3a/g; s/;/%3b/g; s//%3e/g; s/?/%3f/g; s/@/%40/g; s/\[/%5b/g; s/\\/%5c/g; s/\]/%5d/g; s/\^/%5e/g; s/_/%5f/g; s/`/%60/g; s/{/%7b/g; s/|/%7c/g; s/}/%7d/g; s/~/%7e/g; s/      /%09/g;')
+    
+    if [[ ! -e ${file} ]];then
+        msg "Cannot find file ${file}" "Cannot find file" 200 25
+        exit 1
+    fi
+    
+    #MaxOSX
+    if file -I 2>&1 | grep -q "invalid option" ;then
+        local ctype=$(file -bi ${file});ctype=${ctype%%;*}
+    else
+        local ctype=$(file -bI ${file});ctype=${ctype%%;*}
+    fi
+    if [[ -e /sbin/md5 ]];then
+        local etag=$(md5 ${file});etag=${etag##* }
+    else
+        local etag=$(md5sum ${file});etag=${etag%% *} #TODO progress
+    fi
+    if [[ -z ${ctype} || ${ctype} == *corrupt* ]];then
+        ctype="application/octet-stream"
+    fi
+    
+    if [[ -n ${content_type} ]];then
+        ctype=${content_type}
+    fi
+    
+    uploaded=
+
+    options=""
+    if [[ $QUIET == "true" ]];then
+        options="-s"
+    fi
+
+    if [[ ${container} == */* ]];then
+        object="${container#*/}/${object}"
+        container=${container%%/*}
+    fi
+
+    [[ $QUIET != "true" ]] && echo "Uploading ${file}"
+    curl ${options} -k -o/dev/null -f -X PUT -T ${file} -H "ETag: ${etag}" -H "Content-type: ${ctype}" -H "X-Auth-Token: ${StorageToken}" ${StorageUrl}/${container}/${object}
+    [[ $QUIET != "true" ]] && echo
+
+    PUBLIC_CNAME=$(container_cname ${container})
+
+    if [[ -n ${PUBLIC_CNAME} ]];then
+        public_url=${PUBLIC_CNAME}
+        [[ ${public_url} == http* ]] || public_url="http://${public_url}"
+    else
+        public_url=$(container_public ${container})
+    fi 
+        
+    if [[ -n $public_url ]];then
+        nonencoded_object=${file##*/}
+        short_url=$(shorten_url "${public_url}/$object")
+        copy_url=${short_url}
+        if [[ -n ${PUBLIC_CNAME} && ${nonencoded_object} != *\ * ]];then
+            copy_url=${public_url}/${nonencoded_object}
+        fi
+        echo "$short_url | ${public_url}/$nonencoded_object | $file"
+        [[ -x /usr/bin/xclip ]] && echo $copy_url|xclip -selection clipboard
+        [[ -x /usr/bin/pbcopy ]] && echo $copy_url|pbcopy
+    fi
+}
+
+function container_public {
+    local cont=$@
+    curl -s -f -k -I -H "X-Auth-Token: ${AuthToken}" $CDNManagementUrl/$cont|grep "X-CDN-URI"|sed -e 's/\r$//;s/X-CDN-URI: //'|tr -d '\r'
+}
+
+function container_cname {
+    local cont=$@
+    curl -s -f -k -I -H "X-Auth-Token: ${AuthToken}" $StorageUrl/$cont|grep "X-Container-Meta-Cname"|sed -e 's/\r$//;s/X-Container-Meta-Cname: //'|tr -d '\r'
+}
+
+function choose_container {
+    local lastcontainer args 
+
+    if [[ -e ${HOME}/.config/rackspace-cloud/last-container ]];then
+        lastcontainer=$(cat ${HOME}/.config/rackspace-cloud/last-container)
+    fi
+
+    if [[ -n ${choose_default} ]];then
+        echo ${lastcontainer}
+        return
+    fi  
+    
+    CONTAINERS_LIST=$(curl -s -f -k -X GET \
+        -H "X-Auth-Token: ${AuthToken}" \
+        ${StorageUrl}|sort -n
+    )
+    
+    for cont in ${CONTAINERS_LIST};do
+        v=FALSE
+        skip=
+        for ignore_cont in $CONTAINERS_TO_IGNORE;do
+            if [[ $ignore_cont == $cont ]];then
+                skip="1"
+            fi
+        done
+        [[ -n ${skip} ]] && continue
+
+        if [[ $cont == ${lastcontainer} ]];then
+            v=TRUE
+        fi
+
+        args="$args ${cont}"
+    done
+
+
+    PS3="Select Container: "
+    select container in $args;do
+        break
+    done
+
+    [[ -z ${container} ]] && return
+    
+    mkdir -p ${HOME}/.config/rackspace-cloud
+    echo ${container} > ${HOME}/.config/rackspace-cloud/last-container
+    echo $container
+}
+
+function help() {
+cat<<EOF
+upcs OPTIONS FILES1 FILE2...
+
+Use curl on the backup to upload files to rackspace Cloud Files.
+
+Options are :
+
+-s - Use Servicenet to upload.
+-q - Be quiet when uploading.
+-u Username - specify an alternate username than the one stored in config
+-k Api_Key - specify an alternate apikey.
+-a Auth_URL - specify an alternate auth server.
+-c Container - specify the container to upload.
+-d - Use the last chosen container to upload.
+-C Content/Type - force a specific a content-type for file(s) uploaded.
+-m Container - create a container.
+-x - set debug mode.
+
+Config is inside ~/.config/rackspace-cloud/config.
+
+=====================
+Public Header feature
+=====================
+
+If you have a header on the container with :
+
+X-Container-Meta-Cname: public.mydomain.com
+
+upcs will use that for your public link instead of the CDN URL.
+
+=======
+Example 
+=======
+# Force image/png as image of the file image.jpg to be uploaded in public
+# container
+upcs -C image/png -c public image.jpg
+
+VERSION: ${UPCS_VERSION}
+
+EOF
+}
+
+set -e
+[[  -e ${HOME}/.config/rackspace-cloud/config ]] && \
+    source ${HOME}/.config/rackspace-cloud/config
+
+choose_default=
+content_type=
+create_container=
+
+while getopts ":c:dxsu:k:a:C:qm:" opt; do
+  case $opt in
+    q)
+    QUIET=true
+    ;;
+    s)
+    SERVICENET=true
+    ;;
+    u)
+    RCLOUD_API_USER=$OPTARG
+    ;;
+    k)
+    RCLOUD_API_KEY=$OPTARG
+    ;;
+    a)
+    AUTH_SERVER=$OPTARG
+    ;;
+    c)
+    container=$OPTARG
+    ;;
+    d)
+    choose_default=True
+    ;;
+    C)
+    content_type=$OPTARG
+    ;;
+    m)
+    create_container=$OPTARG
+    ;;
+    x)
+    set -x
+    ;;
+    h)
+    help
+    exit 0
+    ;;
+    \?)
+    echo "Invalid option: -$OPTARG" >&2
+    help
+    exit 1
+    ;;
+  esac
+done
+shift $((OPTIND-1))
+
+
+[[ -n ${RCLOUD_API_KEY} && -n ${RCLOUD_API_USER} ]] && check_api_key || get_api_key
+
+if [[ -n ${create_container} ]];then
+    create_container ${create_container}
+    exit $?
+fi
+
+ARGS=$@
+if [[ -z ${ARGS} ]];then
+    msg "No files specified." "No files specified." 200 50
+    exit 1
+fi
+
+[[ -z ${container} ]] && container=$(choose_container)
+[[ -z ${container} ]] && exit 1
+[[ -n ${choose_default} ]] &&   echo "Uploading to container: $container."
+
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+for arg in $ARGS;do
+    tarname=
+
+    #MacOsX
+    if readlink -f 2>&1 | grep -q illegal;then
+        file=$(python -c 'import os,sys;print os.path.realpath(sys.argv[1])' ${arg})
+    else
+        file=$(readlink -f ${arg})
+    fi
+    dest_name=
+    
+    [[ -e ${file} ]] || {
+        echo "$file does not seem to exist."
+        continue
+    }
+    [[ -f ${file} || -d ${file} ]] || {
+        echo "$file does not seem a file or directory."
+        continue
+    }
+    if [[ -d ${file} ]];then
+        if [[ -w ./ ]];then
+            tardir="."
+        else
+            tardir=/tmp
+        fi
+        tarname=${tardir}/${arg}-cf-tarball.tar.gz #in case if already exist we don't destruct it
+        dest_name=${arg}.tar.gz
+
+        tar cvzf $tarname ${arg}
+        file=${tarname}
+    fi
+
+    put_object ${container} ${file} ${dest_name}
+    [[ -n ${tarname} ]] && rm -f ${tarname}
+done
+
