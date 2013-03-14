@@ -32,8 +32,9 @@ alias b="bundle"
 alias be="bundle exec"
 alias bi="bundle install"
 alias bu="bundle update"
-alias r='rake'
+alias r="rake"
 alias v="vagrant"
+alias h="heroku"
 
 # Rails stuff
 #
