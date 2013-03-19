@@ -1,10 +1,13 @@
 #!/bin/sh
+# Usage: git tarbal HEAD
+
 if [ -z "$1" ]
 then
   rev="HEAD"
 else
   rev=$1
 fi
+
 wd=`pwd`
 basepath=`basename $wd`
 desc=$(git describe --always "$rev")
