@@ -37,14 +37,6 @@ task :gems do
   end
 end
 
-desc 'Install multiple ruby versions'
-task :rubies do
-  %(1.8.7 1.9.2 1.9.3 ree rbx).each do |r|
-    puts "Installing #{r}"
-    `rvm install #{r}`
-  end
-end
-
 namespace :sublime do
   desc 'Install settings'
   task :settings do
