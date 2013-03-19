@@ -57,6 +57,7 @@ alias bu="bundle update"
 alias r="rake"
 alias v="vagrant"
 alias h="heroku"
+alias g="git"
 
 # Rails
 alias rs="rails server thin"
