@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 command = ARGV.shift || 'start'
-services = %w(mysql postgres mongo redis)
+services = %w(mysql postgres mongo redis elasticsearch)
 lunchy = `which lunchy`.strip
 unless lunchy.empty?
   unless %w(start stop).include?(command)
