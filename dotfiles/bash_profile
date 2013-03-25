@@ -24,6 +24,9 @@ fi
 # Load NVM (Node version manager)
 [[ -s /Users/sosedoff/.nvm/nvm.sh ]] && . /Users/sosedoff/.nvm/nvm.sh
 
+# Load GVM (Go version manager)
+source $HOME/.gvm/scripts/gvm
+
 # ------------------------------------------------------------------------------
 
 # Navigation
@@ -68,3 +71,4 @@ alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
 # :)
 alias "please"="sudo"
+
