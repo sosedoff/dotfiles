@@ -88,11 +88,26 @@ end
 namespace :tools do
   desc 'Install Hub for Github'
   task :github do
-    if `which hub`.to_s.empty?
+    if `which hub`.empty?
       puts "Installing Hub..."
       exec("gem install hub")
     else
       puts "Hub is already installed"
+    end
+  end
+
+  desc 'Bitbucket CLI'
+  task :bitbucket do
+    if `which pip`.empty?
+      puts "Installing PIP"
+      `easy_install pip`
+    end
+
+    if `which bitbucket`.empty?
+      puts "Installing Bitbucket CLI"
+      `pip install bitbucket-cli`
+    else
+      puts "Bitbucket CLI is already installed"
     end
   end
 end
