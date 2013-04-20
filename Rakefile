@@ -85,6 +85,18 @@ namespace :sublime do
   end
 end
 
+namespace :tools do
+  desc 'Install Hub for Github'
+  task :github do
+    if `which hub`.to_s.empty?
+      puts "Installing Hub..."
+      exec("gem install hub")
+    else
+      puts "Hub is already installed"
+    end
+  end
+end
+
 desc 'Install default configuration'
 task :install do
   Rake::Task['dotfiles'].invoke
