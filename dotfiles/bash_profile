@@ -33,6 +33,7 @@ source $HOME/.gvm/scripts/gvm
 alias ls='ls -G'
 alias la='ls -la'
 alias '..'='cd .. && echo "--> now at: $(pwd)"'
+alias d='cd ~/Desktop'
 
 # Git
 alias gs='git st'
