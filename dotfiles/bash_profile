@@ -34,6 +34,7 @@ alias ls='ls -G'
 alias la='ls -la'
 alias '..'='cd .. && echo "--> now at: $(pwd)"'
 alias d='cd ~/Desktop'
+alias o='cd ~/OpenSource'
 
 # Git
 alias gs='git st'
