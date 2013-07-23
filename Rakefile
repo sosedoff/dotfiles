@@ -1,44 +1,40 @@
+require 'yaml'
+require 'fileutils'
+
+DOTFILES_HOME = ENV['HOME']
 DOTFILES_ROOT = File.dirname(__FILE__)
+CONFIG_PATH   = File.join(DOTFILES_ROOT, 'config.yml')
+CONFIG        = YAML.load_file(CONFIG_PATH)
 
-desc 'Install all dotfiles'
 task :dotfiles do
-  puts "Installing DOT files..."
-  home = ENV['HOME']
-  dotfiles_dir = "#{File.dirname(__FILE__)}/dotfiles"
-  Dir["#{dotfiles_dir}/*"].each do |file|
-    link_path = File.join(home, ".#{File.basename(file)}")
-    system %x[unlink #{link_path}] if File.exists?(link_path)
-    system %[ln -vsf #{file} #{link_path}]
+  files     = CONFIG['dotfiles']
+  files_dir = File.join(DOTFILES_ROOT, 'dotfiles')
+
+  files.each do |name|
+    path      = File.join(DOTFILES_ROOT, 'dotfiles', name)
+    link_path = File.join(DOTFILES_HOME, ".#{name}")
+
+    system "unlink #{link_path}" if File.exists?(link_path)
+    system "ln -vsf #{path} #{link_path}"
   end
 end
 
-desc 'Install all bin files'
 task :binfiles do
-  source_path = File.join(File.dirname(__FILE__), 'bin')
-  target_path = File.join(ENV['HOME'], '.bin')
+  files     = CONFIG['binfiles']
+  files_dir = File.join(DOTFILES_ROOT, 'binfiles')
 
-  if File.exists?(target_path)
-    puts "Unlinking installed bin directory"
-    system %[unlink #{target_path}]
-  end
+  FileUtils.mkdir_p("#{DOTFILES_HOME}/bin")
 
-  puts "Installing new bin directory"
-  puts "ln -vsf #{source_path} #{target_path}"
-  system %[ln -vsf #{source_path} #{target_path}]
-end
+  files.each do |name|
+    path      = File.join(DOTFILES_ROOT, 'binfiles', name)
+    link_path = "#{DOTFILES_HOME}/bin/#{File.basename(name)}"
 
-desc 'Install default gems'
-task :gems do
-  puts "Installing GEM files..."
-  File.readlines('default_gems').each do |gem|
-    gem_name = gem.strip
-    puts " -> #{gem_name}"
-    `gem install #{gem_name}`
+    system "unlink #{link_path}" if File.exists?(link_path)
+    system "ln -vsf #{path} #{link_path}"
   end
 end
 
 namespace :sublime do
-  desc 'Install settings'
   task :settings do
     root_path   = File.expand_path('~/Library/Application Support/Sublime Text 2')
     source_path = File.join(ENV['HOME'], '.sublime_text2', 'Preferences.sublime-settings')
@@ -69,7 +65,6 @@ namespace :sublime do
     end
   end
 
-  desc 'Install custom themes'
   task :themes do
     repo   = 'git://github.com/daylerees/colour-schemes.git'
     path   = File.join(ENV['HOME'], '.sublime-themes')
@@ -82,33 +77,6 @@ namespace :sublime do
     # Link to Sublime home dir
     system %[unlink \"#{target}\"] if File.exists?(target)
     system %[ln -vsf #{path} \"#{target}\"]
-  end
-end
-
-namespace :tools do
-  desc 'Install Hub for Github'
-  task :github do
-    if `which hub`.empty?
-      puts "Installing Hub..."
-      exec("gem install hub")
-    else
-      puts "Hub is already installed"
-    end
-  end
-
-  desc 'Bitbucket CLI'
-  task :bitbucket do
-    if `which pip`.empty?
-      puts "Installing PIP"
-      `easy_install pip`
-    end
-
-    if `which bitbucket`.empty?
-      puts "Installing Bitbucket CLI"
-      `pip install bitbucket-cli`
-    else
-      puts "Bitbucket CLI is already installed"
-    end
   end
 end
 
