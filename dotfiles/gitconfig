@@ -12,18 +12,18 @@
   editor = nano
 
 [alias]
-  co = checkout
-  ct = checkout -t
-  ci = commit -v
-  ca = commit -av
-  st = status -sb
-  sl = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  up = pull
-  track = !git-track
+  co        = checkout
+  ct        = checkout -t
+  ci        = commit -v
+  ca        = commit -av
+  st        = status -sb
+  sl        = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  up        = pull --rebase
+  track     = !git-track
   prune-all = !git-prune-all
-  r = remote -v
-  b = branch -v
-  rh = reset --hard
+  r         = remote -v
+  b         = branch -v
+  rh        = reset --hard
 
 [apply]
   whitespace = nowarn
@@ -32,8 +32,9 @@
   autosetupmerge = true
 
 [color]
+  ui     = true
   branch = auto
-  diff = auto
+  diff   = auto
   status = auto
 
 [push]
@@ -41,3 +42,6 @@
 
 [gc]
   auto = 1
+
+[branch]
+  autosetuprebase = always
