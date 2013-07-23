@@ -1,10 +1,16 @@
 # Dotfiles
 
-Install that stuff:
+Install dotfiles and binfiles:
 
 ```
 rake install
-rake gems
+```
+
+Or separately:
+
+```
+rake dotfiles
+rake binfiles
 ```
 
 ## Sublime Text 2
