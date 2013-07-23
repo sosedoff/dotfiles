@@ -1,10 +1,18 @@
 require 'yaml'
 require 'fileutils'
+require 'pp'
 
 DOTFILES_HOME = ENV['HOME']
 DOTFILES_ROOT = File.dirname(__FILE__)
 CONFIG_PATH   = File.join(DOTFILES_ROOT, 'config.yml')
 CONFIG        = YAML.load_file(CONFIG_PATH)
+
+task :config do
+  CONFIG.each_pair do |name, files|
+    puts "#{name}:"
+    files.each { |f| puts " - #{f}" }
+  end
+end
 
 task :dotfiles do
   files     = CONFIG['dotfiles']
@@ -80,7 +88,6 @@ namespace :sublime do
   end
 end
 
-desc 'Install default configuration'
 task :install do
   Rake::Task['dotfiles'].invoke
   Rake::Task['binfiles'].invoke
