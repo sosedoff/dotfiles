@@ -1,0 +1,22 @@
+dotfiles:
+  - bash_profile
+  - caprc
+  - gitconfig
+  - gitignore
+  - hgrc
+  - rvmrc
+
+binfiles:
+  - activity
+  - addr
+  - feature
+  - gemset
+  - genpassword
+  - services
+  - static_server
+  - upcs
+  - git/git-branch-status
+  - git/git-prune-all
+  - git/git-report
+  - git/git-tarball
+  - git/git-track
