@@ -1,8 +1,0 @@
-rake
-bundler
-capistrano
-lunchy
-thin
-shotgun
-rspec
-vagrant
