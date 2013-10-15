@@ -15,6 +15,7 @@ binfiles:
   - services
   - static_server
   - upcs
+  - gem-version
   - git/git-branch-status
   - git/git-prune-all
   - git/git-report
