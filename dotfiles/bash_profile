@@ -62,6 +62,7 @@ alias h="heroku"
 alias g="git"
 alias z="zeus"
 alias zt="zeus rspec spec"
+alias gv="gem-version"
 
 # Rails
 alias rs="rails server thin"
