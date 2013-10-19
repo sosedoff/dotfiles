@@ -7,6 +7,7 @@ DOTFILES_ROOT = File.dirname(__FILE__)
 CONFIG_PATH   = File.join(DOTFILES_ROOT, 'config.yml')
 CONFIG        = YAML.load_file(CONFIG_PATH)
 
+desc "Show current config"
 task :config do
   CONFIG.each_pair do |name, files|
     puts "#{name}:"
@@ -14,6 +15,7 @@ task :config do
   end
 end
 
+desc "Install dot files"
 task :dotfiles do
   files     = CONFIG['dotfiles']
   files_dir = File.join(DOTFILES_ROOT, 'dotfiles')
@@ -27,6 +29,7 @@ task :dotfiles do
   end
 end
 
+desc "Install bin files"
 task :binfiles do
   files     = CONFIG['binfiles']
   files_dir = File.join(DOTFILES_ROOT, 'bin')
@@ -43,6 +46,7 @@ task :binfiles do
 end
 
 namespace :sublime do
+  desc "Install ST2 settings"
   task :settings do
     root_path   = File.expand_path('~/Library/Application Support/Sublime Text 2')
     source_path = File.join(ENV['HOME'], '.sublime_text2', 'Preferences.sublime-settings')
@@ -73,6 +77,7 @@ namespace :sublime do
     end
   end
 
+  desc "Install ST2 themes"
   task :themes do
     repo   = 'git://github.com/daylerees/colour-schemes.git'
     path   = File.join(ENV['HOME'], '.sublime-themes')
@@ -88,6 +93,7 @@ namespace :sublime do
   end
 end
 
+desc "Install all settings"
 task :install do
   Rake::Task['dotfiles'].invoke
   Rake::Task['binfiles'].invoke
