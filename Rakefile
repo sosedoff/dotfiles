@@ -93,6 +93,10 @@ namespace :sublime do
   end
 end
 
+task :gvm do
+  exec("bash < <(curl -s https://raw.github.com/moovweb/gvm/master/binscripts/gvm-installer)")
+end
+
 desc "Install all settings"
 task :install do
   Rake::Task['dotfiles'].invoke
