@@ -72,8 +72,8 @@ alias rc="rails console"
 # SSH
 alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy && echo "Public key was copied into the clipboard."'
 
-# Sublime Text 2
-alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+# Sublime Text 3
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 
 # :)
 alias "please"="sudo"
