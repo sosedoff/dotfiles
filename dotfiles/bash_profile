@@ -22,10 +22,10 @@ fi
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 # Load NVM (Node version manager)
-[[ -s /Users/sosedoff/.nvm/nvm.sh ]] && . /Users/sosedoff/.nvm/nvm.sh
+#[[ -s /Users/sosedoff/.nvm/nvm.sh ]] && . /Users/sosedoff/.nvm/nvm.sh
 
-# Load GVM (Go version manager)
-source $HOME/.gvm/scripts/gvm
+# Load GVM (Golang Version Manager)
+[[ -s "$HOME/.gvm/bin/gvm-init.sh" ]] && source "$HOME/.gvm/bin/gvm-init.sh"
 
 # ------------------------------------------------------------------------------
 
@@ -77,5 +77,3 @@ alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
 # :)
 alias "please"="sudo"
-
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
