@@ -1,5 +1,5 @@
 # Set my favorite editor
-export EDITOR="nano"
+export EDITOR="/usr/bin/nano"
 
 # Export binary paths
 export PATH=$PATH:$HOME/bin
