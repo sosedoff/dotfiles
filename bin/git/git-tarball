@@ -1,5 +1,5 @@
 #!/bin/sh
-# Usage: git tarbal HEAD
+# Usage: git tarball HEAD
 
 if [ -z "$1" ]
 then
