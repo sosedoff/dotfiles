@@ -8,11 +8,17 @@ else
   rev=$1
 fi
 
-wd=`pwd`
-basepath=`basename $wd`
+wd=$(pwd)
+basepath=$(basename $wd)
 desc=$(git describe --always "$rev")
 prefix="$basepath-$desc"
+file="$prefix.tar.gz"
 
-echo "Creating archive $prefix.tar.gz..."
-git archive --format=tar --prefix="$prefix/" "$rev" | gzip > "$prefix.tar.gz"
+if [ -f $file ]
+then
+  echo "File already exists, its going to be overwritten"
+fi
+
+echo "Creating archive: $file"
+git archive --format=tar --prefix="$prefix/" "$rev" | gzip > "$file"
 echo "Done."
