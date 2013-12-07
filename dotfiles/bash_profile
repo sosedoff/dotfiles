@@ -6,6 +6,9 @@ export PATH=$PATH:$HOME/bin
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/heroku/bin:$PATH
 
+# Export GO stuff
+export GOPATH=$GOPATH:~/OpenSource/Golang/src
+
 # ------------------------------------------------------------------------------
 
 parse_git_branch() {
@@ -30,7 +33,6 @@ fi
 
 # Load GVM (Golang Version Manager)
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-export GOPATH=$GOPATH:~/OpenSource/Golang/src
 
 # ------------------------------------------------------------------------------
 
