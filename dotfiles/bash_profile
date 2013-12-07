@@ -33,6 +33,7 @@ fi
 
 # Load GVM (Golang Version Manager)
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+[[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
 # ------------------------------------------------------------------------------
 
