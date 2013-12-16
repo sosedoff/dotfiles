@@ -20,3 +20,4 @@ binfiles:
   - git/git-report
   - git/git-tarball
   - git/git-track
+  - git/git-branch-list

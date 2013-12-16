@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+current = `git rev-parse --abbrev-ref HEAD`.strip
+all     = `git branch --list --no-color`.strip.split("\n").reject { |n| n =~ /^\*/ }.map(&:strip)
+pad     = all.sort { |a,b| b.size <=> a.size }.first.size
+
+puts
+all.each do |name|
+  behind = `git rev-list #{name}..#{current}`.strip.split("\n").size
+  ahead  = `git rev-list #{current}..#{name}`.strip.split("\n").size
+  puts "#{name.rjust(pad)} - #{behind} behind, #{ahead} ahead"
+end
+puts
