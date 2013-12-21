@@ -76,6 +76,7 @@ alias ss="static_server"
 # Rails
 alias rs="rails server thin"
 alias rc="rails console"
+alias sl="rake db:schema:load RAILS_ENV=test"
 
 # SSH
 alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy && echo "Public key was copied into the clipboard."'
