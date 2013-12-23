@@ -1,7 +1,11 @@
 #!/bin/bash
 
-wget $1 -O ~/Downloads/package.dmg
-hdiutil attach -mountpoint /Volumes/package.dmg ~/Downloads/package.dmg
-cp -a /Volumes/package.dmg/*.app /Applications/
-hdiutil detach /Volumes/package.dmg
-rm ~/Downloads/package.dmg
+DOWNLOAD_PATH=~/Downloads/package.dmg
+VOLUME_PATH=/Volumes/package.dmg
+INSTALL_PATH=/Applications/
+
+wget $1 -O $DOWNLOAD_PATH
+hdiutil attach -mountpoint $VOLUME_PATH $DOWNLOAD_PATH
+cp -a $VOLUME_PATH/*.app $INSTALL_PATH
+hdiutil detach $VOLUME_PATH
+rm $DOWNLOAD_PATH
