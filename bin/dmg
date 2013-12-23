@@ -1,0 +1,7 @@
+#!/bin/bash
+
+wget $1 -O ~/Downloads/package.dmg
+hdiutil attach -mountpoint /Volumes/package.dmg ~/Downloads/package.dmg
+cp -a /Volumes/package.dmg/*.app /Applications/
+hdiutil detach /Volumes/package.dmg
+rm ~/Downloads/package.dmg
