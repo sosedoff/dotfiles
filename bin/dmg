@@ -4,6 +4,12 @@ DOWNLOAD_PATH=~/Downloads/package.dmg
 VOLUME_PATH=/Volumes/package.dmg
 INSTALL_PATH=/Applications/
 
+if [ -z "$1" ]
+  then
+    echo "Please provide dmg download URL"
+    exit 1
+fi
+
 wget $1 -O $DOWNLOAD_PATH
 hdiutil attach -mountpoint $VOLUME_PATH $DOWNLOAD_PATH
 cp -a $VOLUME_PATH/*.app $INSTALL_PATH
