@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# Install OSX dmg files
+# Usage: dmg http://site.com/package.dmg
 
 DOWNLOAD_PATH=~/Downloads/package.dmg
 VOLUME_PATH=/Volumes/package.dmg
