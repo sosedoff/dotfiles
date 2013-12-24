@@ -11,6 +11,12 @@ if [ -z "$1" ]
 fi
 
 wget $1 -O $DOWNLOAD_PATH
+
+if [ "$?" -ne 0 ]; then
+  echo "Failed to download $1"
+  exit 1
+fi
+
 hdiutil attach -mountpoint $VOLUME_PATH $DOWNLOAD_PATH
 cp -a $VOLUME_PATH/*.app $INSTALL_PATH
 hdiutil detach $VOLUME_PATH
