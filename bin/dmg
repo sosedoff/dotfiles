@@ -7,10 +7,10 @@ DOWNLOAD_PATH=~/Downloads/package.dmg
 VOLUME_PATH=/Volumes/package.dmg
 INSTALL_PATH=/Applications/
 
-if [ -z "$1" ]
-  then
-    echo "Please provide dmg download URL"
-    exit 1
+if [ -z "$1" ] ; then
+  echo "ERROR: URL was not provided"
+  echo "Usage: dmg http://site.com/package.dmg"
+  exit 1
 fi
 
 rm $DOWNLOAD_PATH
