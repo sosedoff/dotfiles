@@ -13,7 +13,7 @@ rake dotfiles
 rake binfiles
 ```
 
-## Sublime Text 2
+## Sublime Text 3
 
 Few tasks to manage Sublime Text settings:
 
