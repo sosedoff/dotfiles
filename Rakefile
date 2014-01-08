@@ -49,12 +49,12 @@ namespace :sublime do
   desc "Install ST2 settings"
   task :settings do
     root_path   = File.expand_path('~/Library/Application Support/Sublime Text 3')
-    source_path = File.join(ENV['HOME'], '.sublime_text2', 'Preferences.sublime-settings')
+    source_path = File.join(ENV['HOME'], '.sublime_text', 'Preferences.sublime-settings')
     target_path = File.join(root_path, 'Packages/User/Preferences.sublime-settings')
 
     # Make sure we have sublime folder under user home
     if !File.exists?(source_path)
-      system %[cp -a #{DOTFILES_ROOT}/sublime_text #{ENV['HOME']}/.sublime_text]
+      system %[cp -a #{DOTFILES_ROOT}/sublime_text3 #{ENV['HOME']}/.sublime_text]
     end
 
     # Unlink current settings
