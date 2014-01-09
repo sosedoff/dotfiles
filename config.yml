@@ -10,7 +10,6 @@ binfiles:
   - activity
   - addr
   - feature
-  - gemset
   - genpassword
   - services
   - static_server
