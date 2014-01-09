@@ -16,7 +16,6 @@ binfiles:
   - gem-version
   - git/git-branch-status
   - git/git-prune-all
-  - git/git-report
   - git/git-tarball
   - git/git-track
   - git/git-branch-list
