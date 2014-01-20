@@ -23,6 +23,11 @@ def diff(num, word)
   "#{num} #{word}".send(color)
 end
 
+unless File.exists?("#{Dir.pwd}/.git")
+  puts "Not a git repo"
+  exit
+end
+
 current = `git rev-parse --abbrev-ref HEAD`.strip
 all     = `git branch --list --no-color`.strip.split("\n").reject { |n| n =~ /^\*/ }.map(&:strip)
 
