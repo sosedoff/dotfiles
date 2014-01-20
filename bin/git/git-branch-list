@@ -25,7 +25,13 @@ end
 
 current = `git rev-parse --abbrev-ref HEAD`.strip
 all     = `git branch --list --no-color`.strip.split("\n").reject { |n| n =~ /^\*/ }.map(&:strip)
-pad     = all.sort { |a,b| b.size <=> a.size }.first.size
+
+if all.empty?
+  puts "Nothing to compare..."
+  exit
+end
+
+pad = all.sort { |a,b| b.size <=> a.size }.first.size
 
 puts
 all.each do |name|
