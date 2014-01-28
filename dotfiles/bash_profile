@@ -1,3 +1,15 @@
+# Load RVM (Ruby version manager)
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+
+# Load NVM (Node version manager)
+[[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh"
+[[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
+
+# Load GVM (Golang Version Manager)
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+# ------------------------------------------------------------------------------
+
 # Set my favorite editor
 export EDITOR="/usr/bin/nano"
 
@@ -22,18 +34,6 @@ if [[ `whoami` == "root" ]]; then
 else
   PS1="\w\[\e[0;33;49m\]\$(parse_git_branch)\[\e[0;0m\]$ "
 fi
-
-# ------------------------------------------------------------------------------
-
-# Load RVM (Ruby version manager)
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
-# Load NVM (Node version manager)
-[[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh"
-
-# Load GVM (Golang Version Manager)
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-[[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
 # ------------------------------------------------------------------------------
 
