@@ -28,9 +28,6 @@
 [apply]
   whitespace = nowarn
 
-[branch]
-  autosetupmerge = true
-
 [color]
   ui     = true
   branch = auto
