@@ -25,9 +25,6 @@
   b         = branch -v
   rh        = reset --hard
 
-[apply]
-  whitespace = nowarn
-
 [color]
   ui     = true
   branch = auto
