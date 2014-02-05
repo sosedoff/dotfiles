@@ -18,4 +18,4 @@ binfiles:
   - git/git-prune-all
   - git/git-tarball
   - git/git-track
-  - git/git-branch-list
+  - git/git-branches
