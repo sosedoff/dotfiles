@@ -21,3 +21,16 @@ Few tasks to manage Sublime Text settings:
 rake sublime:settings  # Install settings
 rake sublime:themes    # Install custom themes
 ```
+
+## Scripts and Tools
+
+- `addr` - Get current IP address of the machine.
+- `dmg` - Quickly install DMG package.
+- `feature` - Start a new git branch or checkout existing.
+- `gem-version` - Quickly check the latest gem version.
+- `genpassword` - Generate a random password.
+- `static_server` - Start a static content server in current directory
+- `git-track` - Setup remote git branch tracking
+- `git-tarball` - Package git HEAD into tar.gz archive
+- `git-branches` - List all git branches and their diff stats with current branch
+- `git-branch-status` - Check merge status of git branch
