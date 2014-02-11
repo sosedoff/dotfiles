@@ -24,6 +24,7 @@
   r         = remote -v
   b         = branch -v
   rh        = reset --hard
+  clean-merged = !git-clean-merged
 
 [color]
   ui     = true

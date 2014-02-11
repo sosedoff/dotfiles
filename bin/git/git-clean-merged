@@ -1,0 +1,8 @@
+#!/bin/bash
+# 
+# Delete all locally merged branches
+# 
+# Usage: git clean-merged
+#
+
+git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
