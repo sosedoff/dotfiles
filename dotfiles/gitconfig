@@ -25,7 +25,7 @@
   b            = branch -v
   rh           = reset --hard
   clean-merged = !git-clean-merged
-	today        = log --format='[%an] %s' --since='7am'
+  today        = log --format='[%an] %s' --since='7am'
 
 [color]
   ui     = true
