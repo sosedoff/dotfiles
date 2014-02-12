@@ -12,20 +12,20 @@
   editor = nano
 
 [alias]
-  co        = checkout
-  ct        = checkout -t
-  ci        = commit -v
-  ca        = commit -av
-  st        = status -sb
-  sl        = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  up        = pull --rebase
-  track     = !git-track
-  prune-all = !git-prune-all
-  r         = remote -v
-  b         = branch -v
-  rh        = reset --hard
+  co           = checkout
+  ct           = checkout -t
+  ci           = commit -v
+  ca           = commit -av
+  st           = status -sb
+  sl           = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  up           = pull --rebase
+  track        = !git-track
+  prune-all    = !git-prune-all
+  r            = remote -v
+  b            = branch -v
+  rh           = reset --hard
   clean-merged = !git-clean-merged
-	today = log --format='[%an] %s' --since='7am'
+	today        = log --format='[%an] %s' --since='7am'
 
 [color]
   ui     = true
