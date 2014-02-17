@@ -11,7 +11,6 @@ binfiles:
   - addr
   - feature
   - genpassword
-  - static_server
   - dmg
   - gem-version
   - git/git-prune-all
