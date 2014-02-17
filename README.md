@@ -33,4 +33,3 @@ rake sublime:themes    # Install custom themes
 - `git-track` - Setup remote git branch tracking
 - `git-tarball` - Package git HEAD into tar.gz archive
 - `git-branches` - List all git branches and their diff stats with current branch
-- `git-branch-status` - Check merge status of git branch
