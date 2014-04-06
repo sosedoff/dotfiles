@@ -9,7 +9,6 @@ dotfiles:
 binfiles:
   - activity
   - addr
-  - feature
   - genpassword
   - dmg
   - gem-version
