@@ -5,6 +5,7 @@
 .DS_Store
 ._*
 /.envrc
+.env
 /.bundle
 TAGS
 tags
