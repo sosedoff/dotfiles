@@ -79,7 +79,7 @@ alias g="git"
 alias z="zeus"
 alias zt="zeus rspec spec"
 alias gv="gem-version"
-alias ss="static_server"
+alias ss="python -m SimpleHTTPServer"
 
 # Rails
 alias rs="rails server thin"
