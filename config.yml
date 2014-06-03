@@ -5,6 +5,7 @@ dotfiles:
   - gitignore
   - hgrc
   - rvmrc
+  - managers
 
 binfiles:
   - activity

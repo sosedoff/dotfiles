@@ -1,5 +1,5 @@
 # Load all package managers
-source "~/.managers"
+source "$HOME/.managers"
 
 # ------------------------------------------------------------------------------
 
