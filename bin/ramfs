@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+
+command = ARGV.shift.to_s
+
+if command.empty?
+  puts "Command required"
+  exit 1
+end
+
+if command == "create"
+  size         = Integer(ARGV.shift || 1024)
+  size_sectors = size * 1024 * 1024 / 512
+  mount_point  = "/Volumes/RAMFS"
+
+  if File.exists?(mount_point)
+    puts "Mount point #{mount_point} already exists"
+    exit 2
+  end
+
+  device = `hdid -nomount ram://#{size_sectors}`.strip
+
+  unless $?.success?
+    puts "Failed to create device"
+    exit 2
+  end
+
+  `newfs_hfs -v 'Volatile' #{device}`
+
+  unless $?.success?
+    puts "Failed to create filesystem"
+    exit 2
+  end
+
+  `mkdir -p #{mount_point}`
+  `mount -o noatime -t hfs #{device} #{mount_point}`
+
+  unless $?.success?
+    puts "Failed to mount filesystem"
+    exit 2
+  end
+
+  puts "Ramfs filesystem has been mounted to #{mount_point}"
+  exit
+end
+
+if command == "destroy"
+  mount_point = "/Volumes/RAMFS"
+
+  `diskutil unmount #{mount_point}`
+  `diskutil eject /dev/disk1`
+end
