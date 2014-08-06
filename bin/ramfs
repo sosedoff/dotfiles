@@ -1,5 +1,13 @@
 #!/usr/bin/env ruby
 
+def ramfs_devices
+  `df | grep RAMFS`.
+    strip.
+    split("\n").
+    map { |l| l.split(/\s{2,}/) }.
+    map { |l| { device: l.first, path: l.last } }
+end
+
 command = ARGV.shift.to_s
 
 if command.empty?
@@ -8,9 +16,10 @@ if command.empty?
 end
 
 if command == "create"
+  name         = ARGV.shift || "test"
   size         = Integer(ARGV.shift || 1024)
   size_sectors = size * 1024 * 1024 / 512
-  mount_point  = "/Volumes/RAMFS"
+  mount_point  = "/Volumes/RAMFS-#{name}".strip
 
   if File.exists?(mount_point)
     puts "Mount point #{mount_point} already exists"
@@ -33,8 +42,15 @@ if command == "create"
     exit 2
   end
 
-  puts "Creating mountpoint"
+  puts "Creating mountpoint #{mount_point} for device #{device}"
   `mkdir -p #{mount_point}`
+
+  unless $?.success?
+    puts "Failed to create mount point"
+    exit 2
+  end
+
+  puts "Mounting device #{device} to #{mount_point}"
   `mount -o noatime -t hfs #{device} #{mount_point}`
 
   unless $?.success?
@@ -47,11 +63,19 @@ if command == "create"
 end
 
 if command == "destroy"
-  mount_point = "/Volumes/RAMFS"
+  name        = ARGV.shift || "test"
+  mount_point = "/Volumes/RAMFS-#{name}".strip
+
+  device = ramfs_devices.select { |d| d[:path] == mount_point }.first
+
+  if device.nil?
+    puts "No device found for mount point #{mount_point}"
+    exit 2
+  end
 
   puts "Unmounting #{mount_point}..."
   `diskutil unmount #{mount_point}`
 
   puts "Ejecting disk..."
-  `diskutil eject /dev/disk1`
+  `diskutil eject #{device[:device]}`
 end
