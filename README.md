@@ -33,3 +33,12 @@ rake sublime:themes    # Install custom themes
 - `git-track` - Setup remote git branch tracking
 - `git-tarball` - Package git HEAD into tar.gz archive
 - `git-branches` - List all git branches and their diff stats with current branch
+
+### ramfs
+
+ramfs script provides ability to create/destroy RAMFS drives. Usage:
+
+```
+ramfs create [name]
+ramfs destroy [name]
+```
