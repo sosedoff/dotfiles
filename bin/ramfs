@@ -17,6 +17,7 @@ if command == "create"
     exit 2
   end
 
+  puts "Creating a device"
   device = `hdid -nomount ram://#{size_sectors}`.strip
 
   unless $?.success?
@@ -24,6 +25,7 @@ if command == "create"
     exit 2
   end
 
+  puts "Creating filesystem"
   `newfs_hfs -v 'Volatile' #{device}`
 
   unless $?.success?
@@ -31,6 +33,7 @@ if command == "create"
     exit 2
   end
 
+  puts "Creating mountpoint"
   `mkdir -p #{mount_point}`
   `mount -o noatime -t hfs #{device} #{mount_point}`
 
@@ -46,6 +49,9 @@ end
 if command == "destroy"
   mount_point = "/Volumes/RAMFS"
 
+  puts "Unmounting #{mount_point}..."
   `diskutil unmount #{mount_point}`
+
+  puts "Ejecting disk..."
   `diskutil eject /dev/disk1`
 end
