@@ -33,7 +33,7 @@ General purpose:
 - `genpassword`   - Generate a random password
 - `static_server` - Start a static content server in current directory
 
-## Git
+Git:
 
 - `feature`      - Start a new git branch or checkout existing.
 - `git-track`    - Setup remote git branch tracking
