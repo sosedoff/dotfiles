@@ -24,17 +24,23 @@ rake sublime:themes    # Install custom themes
 
 ## Scripts and Tools
 
-- `addr` - Get current IP address of the machine.
-- `dmg` - Quickly install DMG package.
-- `feature` - Start a new git branch or checkout existing.
-- `gem-version` - Quickly check the latest gem version.
-- `genpassword` - Generate a random password.
+General purpose:
+
+- `addr`          - Get current IP address of the machine
+- `dmg`           - Quickly install DMG package
+- `ramfs`         - Manage RAMFS volumes (OSX specific)
+- `gem-version`   - Quickly check the latest gem version
+- `genpassword`   - Generate a random password
 - `static_server` - Start a static content server in current directory
-- `git-track` - Setup remote git branch tracking
-- `git-tarball` - Package git HEAD into tar.gz archive
+
+## Git
+
+- `feature`      - Start a new git branch or checkout existing.
+- `git-track`    - Setup remote git branch tracking
+- `git-tarball`  - Package git HEAD into tar.gz archive
 - `git-branches` - List all git branches and their diff stats with current branch
 
-### ramfs
+### ramds usage
 
 ramfs script provides ability to create/destroy RAMFS drives. Usage:
 
