@@ -19,3 +19,4 @@ binfiles:
   - git/git-track
   - git/git-branches
   - git/git-clean-merged
+  - git/git-churn
