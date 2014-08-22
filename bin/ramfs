@@ -15,6 +15,11 @@ if command.empty?
   exit 1
 end
 
+unless ["create", "destroy"].include?(command)
+  puts "Invalid command"
+  exit 1
+end
+
 if command == "create"
   name         = ARGV.shift || "test"
   size         = Integer(ARGV.shift || 1024)
