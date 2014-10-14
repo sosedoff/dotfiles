@@ -86,5 +86,8 @@ alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy && echo "Public key was copied int
 # Sublime Text 3
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 
+# Other stuff
+alias flushredis="redis-cli flushall"
+
 # :)
 alias "please"="sudo"
