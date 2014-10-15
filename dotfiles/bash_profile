@@ -43,6 +43,7 @@ alias gs='git st'
 alias gd='git diff'
 alias gl='git sl'
 alias gp='git push'
+alias gh="git log --pretty=format:\"'%cd','%cn','%s'\""
 
 # Git branches
 alias master='git checkout master'
