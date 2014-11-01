@@ -75,6 +75,7 @@ alias zt="zeus rspec spec/"
 alias zpt="zeus parallel_rspec spec/"
 alias gv="gem-version"
 alias ss="python -m SimpleHTTPServer"
+alias es="open ~/OpenSource/elasticsearch-head/index.html"
 
 # Rails
 alias rs="rails server thin"
