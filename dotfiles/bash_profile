@@ -90,6 +90,7 @@ alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 
 # Other stuff
 alias flushredis="redis-cli flushall"
+alias myip="curl http://ifconfig.me/ip"
 
 # :)
 alias "please"="sudo"
