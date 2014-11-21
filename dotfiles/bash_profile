@@ -41,6 +41,7 @@ alias o='cd ~/OpenSource'
 # Git
 alias gs='git st'
 alias gd='git diff'
+alias gdc='git diff --cached'
 alias gl='git sl'
 alias gp='git push'
 alias gh="git log --pretty=format:\"'%cd','%cn','%s'\""
