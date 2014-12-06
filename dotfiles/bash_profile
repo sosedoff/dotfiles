@@ -7,13 +7,13 @@ source "$HOME/.managers"
 export EDITOR="/usr/bin/nano"
 
 # Export GO stuff
-export GOPATH=/Users/sosedoff/Go:$GOPATH
+export GOPATH=$HOME/Go
 
 # Export binary paths
 export PATH=$PATH:$HOME/bin
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/heroku/bin:$PATH
-export PATH=/Users/sosedoff/Go/bin:$PATH
+export PATH=$PATH:$HOME/Go/bin
 
 # ------------------------------------------------------------------------------
 
