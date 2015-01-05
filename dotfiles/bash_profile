@@ -78,6 +78,7 @@ alias gv="gem-version"
 alias ss="python -m SimpleHTTPServer"
 alias es="open ~/OpenSource/elasticsearch-head/index.html"
 alias github="/Applications/GitHub.app/Contents/MacOS/github_cli"
+alias devchrome="open -a Google\ Chrome --args --disable-web-security"
 
 # Rails
 alias rs="rails server thin"
