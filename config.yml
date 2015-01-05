@@ -14,7 +14,7 @@ binfiles:
   - dmg
   - gem-version
   - ramfs
-  - make_ssl
+  - makessl
   - git/git-prune-all
   - git/git-tarball
   - git/git-track
