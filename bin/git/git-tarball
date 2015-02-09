@@ -21,4 +21,3 @@ fi
 
 echo "Creating archive: $file"
 git archive --format=tar --prefix="$prefix/" "$rev" | gzip > "$file"
-echo "Done."
