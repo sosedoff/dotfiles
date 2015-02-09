@@ -53,12 +53,6 @@ alias develop='git checkout development'
 alias dev='git checkout development'
 alias feature='git checkout -b $1'
 
-# Rubies
-alias r192='rvm use 1.9.2'
-alias r193='rvm use 1.9.3'
-alias r20='rvm use 2.0'
-alias r21='rvm use 2.1'
-
 # Bundler aliases
 alias b="bundle"
 alias be="bundle exec"
