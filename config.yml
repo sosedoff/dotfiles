@@ -15,6 +15,7 @@ binfiles:
   - gem-version
   - ramfs
   - makessl
+  - github-downloads
   - git/git-prune-all
   - git/git-tarball
   - git/git-track
