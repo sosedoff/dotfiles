@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require "net/http"
+require "uri"
+require "json"
+
+name = ARGV.shift
+url  = "https://api.github.com/repos/#{name}/releases"
+uri  = URI(url)
+
+total = 0
+resp = JSON.load(Net::HTTP.get(uri))
+
+resp.each do |rel|
+  num = rel["assets"].map { |a| a["download_count"] }.reduce(:+)
+  total += num
+  puts "-> #{rel["name"]}: #{num}"
+end
+
+puts "Total downloads: #{total}"
