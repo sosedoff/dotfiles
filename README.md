@@ -33,9 +33,11 @@ General purpose:
 - `genpassword`   - Generate a random password
 - `static_server` - Start a static content server in current directory
 
-Git:
+Git extras:
 
 - `feature`      - Start a new git branch or checkout existing.
-- `git-track`    - Setup remote git branch tracking
-- `git-tarball`  - Package git HEAD into tar.gz archive
-- `git-branches` - List all git branches and their diff stats with current branch
+- `master`       - Switch to master branch
+- `develop`      - Switch to development branch
+- `git track`    - Setup remote git branch tracking
+- `git tarball`  - Package git HEAD into tar.gz archive
+- `git branches` - List all git branches and their diff stats with current branch
