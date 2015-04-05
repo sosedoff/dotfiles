@@ -1,64 +1,73 @@
 package main
 
-import(
-  "os"
-  "fmt"
-  "net/http"
-  "io/ioutil"
-  "encoding/json"
+import (
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"os"
 )
 
-func getUrlContents(url string) string {
-  var err error
-  var resp *http.Response
-  var body []byte
-
-  resp, err = http.Get(url)
-  if err != nil {
-    return ""
-  }
-
-  defer resp.Body.Close()
-
-  body, err = ioutil.ReadAll(resp.Body)
-  if err != nil {
-    return ""
-  }
-
-  return string(body)
+type Version struct {
+	Number string `json:"number"`
+	Date   string `json:"built_at"`
 }
 
-func parseJson(body string) {
-  var versions []interface{}
+func getUrlContents(url string) ([]byte, error) {
+	var err error
+	var resp *http.Response
+	var body []byte
 
-  err := json.Unmarshal([]byte(body), &versions)
-  if err != nil {
-    fmt.Println("Failed to parse JSON")
-    os.Exit(1)
-  }
+	resp, err = http.Get(url)
+	if err != nil {
+		return body, err
+	}
+	defer resp.Body.Close()
 
-  if len(versions) == 0 {
-    fmt.Println("Gem not found")
-    os.Exit(1)
-  }
+	if resp.StatusCode != 200 {
+		return body, errors.New("Server responded with non-200 status")
+	}
 
-  fmt.Println(versions[0])
+	body, err = ioutil.ReadAll(resp.Body)
+	return body, err
+}
+
+func parseJson(body []byte) {
+	var versions []Version
+
+	err := json.Unmarshal(body, &versions)
+	if err != nil {
+		fmt.Println("Failed to parse JSON")
+		return
+	}
+
+	if len(versions) == 0 {
+		fmt.Println("Gem not found")
+		return
+	}
+
+	fmt.Printf(
+		"Latest version: %s\nReleased: %s\n",
+		versions[0].Number,
+		versions[0].Date,
+	)
 }
 
 func main() {
-  if len(os.Args) == 1 {
-    fmt.Println("Name required")
-    os.Exit(1)
-  }
+	if len(os.Args) == 1 {
+		fmt.Println("Name required")
+		os.Exit(1)
+	}
 
-  name   := os.Args[1]
-  url    := fmt.Sprintf("http://dependenci.com/api/rubygems/%s", name)
-  result := getUrlContents(url)
+	name := os.Args[1]
+	url := fmt.Sprintf("https://rubygems.org/api/v1/versions/%s.json", name)
+	result, err := getUrlContents(url)
 
-  if len(result) == 0 {
-    fmt.Println("Unable to fetch data")
-    os.Exit(1)
-  }
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
-  parseJson(result)
+	parseJson(result)
 }
