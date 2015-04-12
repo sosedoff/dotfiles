@@ -72,6 +72,7 @@ alias es="open ~/OpenSource/elasticsearch-head/index.html"
 alias github="/Applications/GitHub.app/Contents/MacOS/github_cli"
 alias devchrome="open -a Google\ Chrome --args --disable-web-security"
 alias godev="cd ~/go/src/github.com/sosedoff"
+alias b2d="boot2docker"
 
 # Rails
 alias rs="rails server thin"
