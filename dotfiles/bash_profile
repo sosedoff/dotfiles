@@ -98,3 +98,6 @@ alias "please"="sudo"
 # ------------------------------------------------------------------------------
 # Load all package managers
 source "$HOME/.managers"
+
+# Set ulimit for all sessions
+ulimit -n 8096
