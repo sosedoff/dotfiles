@@ -12,9 +12,9 @@ end
 
 def diff(num, word)
   color = case num
-  when 0..5
+  when 0..10
     :green
-  when 5..15
+  when 10..25
     :yellow
   else
     :red
