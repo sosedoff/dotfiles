@@ -15,6 +15,14 @@ export PATH=$PATH:$HOME/Go/bin
 
 # ------------------------------------------------------------------------------
 
+if [ $(ps ax | grep boot2docker-vm -c) -eq 2 ]
+then
+  echo "Boot2Docker is running. Loading shell init scripts automatically."
+  $(boot2docker shellinit)
+fi
+
+# ------------------------------------------------------------------------------
+
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
