@@ -15,10 +15,13 @@ export PATH=$PATH:$HOME/Go/bin
 
 # ------------------------------------------------------------------------------
 
-if [ $(ps ax | grep boot2docker-vm -c) -eq 2 ]
+if [ $(hash boot2docker 2>/dev/null ; echo $?) -eq 0 ]
 then
-  echo "Boot2Docker is running. Loading shell init scripts automatically."
-  $(boot2docker shellinit)
+  if [ $(ps aux | grep [b]oot2docker-vm -c) -eq 1 ]
+  then
+    echo "Boot2Docker is running. Loading shell init scripts automatically."
+    $(boot2docker shellinit 2>/dev/null)
+  fi
 fi
 
 # ------------------------------------------------------------------------------
