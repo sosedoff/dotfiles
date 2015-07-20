@@ -44,7 +44,6 @@ fi
 alias ls='ls -G'
 alias la='ls -la'
 alias '..'='cd .. && echo "--> now at: $(pwd)"'
-alias d='cd ~/Desktop'
 alias o='cd ~/OpenSource'
 
 # Git
@@ -74,6 +73,7 @@ alias r="rake"
 alias v="vagrant"
 alias h="heroku"
 alias g="git"
+alias d="docker"
 alias z="zeus"
 alias zt="zeus rspec spec/"
 alias zpt="zeus parallel_rspec spec/"
