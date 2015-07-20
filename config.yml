@@ -8,7 +8,6 @@ dotfiles:
   - managers
 
 binfiles:
-  - activity
   - addr
   - genpassword
   - dmg
