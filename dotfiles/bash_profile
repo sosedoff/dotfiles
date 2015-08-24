@@ -109,7 +109,7 @@ alias docker-clean="docker ps -aq | xargs docker rm -f"
 # Other stuff
 alias flushredis="redis-cli flushall"
 alias flushmc="echo \"flush_all\" | nc localhost 11211"
-alias myip="curl http://ifconfig.me/ip"
+alias myip="curl -s https://api.ipify.org | xargs echo"
 alias clearlogs='find ~ -name "*.log" -exec tee {} \; </dev/null'
 alias clearalllogs='sudo find / -name "*.log" -exec tee {} \; </dev/null'
 
