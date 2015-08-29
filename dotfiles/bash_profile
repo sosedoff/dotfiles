@@ -15,22 +15,6 @@ export PATH=/usr/local/heroku/bin:$PATH
 export PATH=$PATH:$HOME/Go/bin
 
 # ------------------------------------------------------------------------------
-if [ $(hash boot2docker 2>/dev/null ; echo $?) -eq 0 ]
-then
-  if [ $(ps aux | grep [b]oot2docker-vm -c) -eq 1 ]
-  then
-    echo "Boot2Docker is running. Loading shell init scripts automatically."
-    if [ -e ~/.boot2docker/skip_init ]
-      echo "Skipped init"
-    then
-      export DOCKER_HOST=tcp://$(boot2docker ip):2375
-    else
-      $(boot2docker shellinit 2>/dev/null)
-    fi
-  fi
-fi
-
-# ------------------------------------------------------------------------------
 
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
@@ -90,7 +74,6 @@ alias es="open ~/OpenSource/elasticsearch-head/index.html"
 alias github="/Applications/GitHub.app/Contents/MacOS/github_cli"
 alias devchrome="open -a Google\ Chrome --args --disable-web-security"
 alias godev="cd ~/go/src/github.com/sosedoff"
-alias b2d="boot2docker"
 
 # Rails
 alias rs="rails server thin"
