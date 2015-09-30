@@ -29,6 +29,7 @@
   ],
   "scroll_speed": 0,
   "tab_size": 2,
+  "tabs_small": true,
   "theme": "Afterglow.sublime-theme",
   "translate_tabs_to_spaces": true,
   "trim_automatic_white_space": true,
