@@ -52,10 +52,8 @@ namespace :sublime do
     source_path = File.join(ENV['HOME'], '.sublime_text', 'Preferences.sublime-settings')
     target_path = File.join(root_path, 'Packages/User/Preferences.sublime-settings')
 
-    # Make sure we have sublime folder under user home
-    if !File.exists?(source_path)
-      system %[cp -a #{DOTFILES_ROOT}/sublime_text3 #{ENV['HOME']}/.sublime_text]
-    end
+    system %{rm -rf #{ENV['HOME']}/.sublime_text}
+    system %[cp -a #{DOTFILES_ROOT}/sublime_text3 #{ENV['HOME']}/.sublime_text]
 
     # Unlink current settings
     if File.exists?(target_path)
