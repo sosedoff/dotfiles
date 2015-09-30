@@ -65,12 +65,20 @@ namespace :sublime do
       system %[ln -vsf #{source_path} \"#{target_path}\"]
     end
 
-    # Install Soda theme
-    Dir.chdir(File.join(root_path, 'Packages')) do
-      if !File.exists?("Theme - Soda")
-        system('git clone https://github.com/buymeasoda/soda-theme/ "Theme - Soda"')
-      else
-        puts "Soda theme is already installed. Skipping."
+    themes = {
+      "Theme - Afterglow" => "https://github.com/YabataDesign/afterglow-theme.git",
+      "Theme - Soda"      => "https://github.com/buymeasoda/soda-theme.git",
+      "Theme - Spacegray" => "https://github.com/kkga/spacegray.git"
+    }
+
+    packages_path = File.join(root_path, "Packages")
+
+    Dir.chdir(packages_path) do
+      themes.each_pair do |name, repo|
+        unless File.exists?("./#{name}")
+          puts "Cloning theme #{name}: #{repo}"
+          system %[git clone repo "#{name}"]
+        end
       end
     end
   end
