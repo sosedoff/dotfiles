@@ -14,6 +14,9 @@ export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/heroku/bin:$PATH
 export PATH=$PATH:$HOME/Go/bin
 
+# FIXME: Dymaic loading with docker-machine
+export DOCKER_HOST=tcp://192.168.99.100:2375
+
 # ------------------------------------------------------------------------------
 
 parse_git_branch() {
