@@ -1,6 +1,7 @@
 dotfiles:
   - bash_profile
   - caprc
+  - gemrc
   - gitconfig
   - gitignore
   - hgrc
