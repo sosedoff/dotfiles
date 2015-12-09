@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+database_url = ARGV.shift || ""
+
+if database_url.size == 0
+  STDERR.puts "Please provide database url"
+  exit 1
+end
+
+require "uri"
+url = URI.parse(database_url)
+db = url.path[1..-1]
+
+vars = [
+  "PGHOST=#{url.host}",
+  "PGPORT=#{url.port}",
+  "PGUSER=#{url.user}",
+  "PGPASSWORD=#{url.password}",
+  "PGDATABASE=#{db}"
+]
+
+cmd = vars.join(" ") + " pg_dump -O -c -f ./#{db}.sql #{db}"
+exec(cmd)
