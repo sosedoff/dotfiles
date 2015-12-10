@@ -10,6 +10,7 @@ end
 require "uri"
 url = URI.parse(database_url)
 db = url.path[1..-1]
+save_path = ARGV.shift || "./#{db}.sql"
 
 vars = [
   "PGHOST=#{url.host}",
@@ -19,5 +20,5 @@ vars = [
   "PGDATABASE=#{db}"
 ]
 
-cmd = vars.join(" ") + " pg_dump -O -c -f ./#{db}.sql #{db}"
+cmd = vars.join(" ") + " pg_dump -O -c -f #{save_path} #{db}"
 exec(cmd)
