@@ -15,6 +15,7 @@ binfiles:
   - gem-version
   - ramfs
   - makessl
+  - docker-clean
   - pg_dump_url
   - github-downloads
   - git/git-prune-all
