@@ -21,4 +21,11 @@ vars = [
 ]
 
 cmd = vars.join(" ") + " pg_dump -O -c -f #{save_path} #{db}"
-exec(cmd)
+
+if ENV["DEBUG"]
+  puts cmd
+else
+  puts "Dumping database to #{save_path}..."
+  exec(cmd)
+  puts "Done!"
+end
