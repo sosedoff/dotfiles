@@ -5,17 +5,15 @@ export EDITOR="/usr/bin/nano"
 export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
 
 # Export GO stuff
-export GOPATH=$HOME/Go
+export GOPATH=$HOME/go
 
 # Export binary paths
 export PATH=$PATH:$HOME/bin
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/heroku/bin:$PATH
-export PATH=$PATH:$HOME/Go/bin
-
-# FIXME: Dymaic loading with docker-machine
-export DOCKER_HOST=tcp://192.168.99.100:2375
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
 # ------------------------------------------------------------------------------
 
