@@ -91,7 +91,7 @@ alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 # Other stuff
 alias flushredis="redis-cli flushall"
 alias flushmc="echo \"flush_all\" | nc localhost 11211"
-alias myip="curl -s https://api.ipify.org | xargs echo"
+alias myip="curl http://whatismyip.akamai.com/ ; echo"
 alias clearlogs='find ~ -name "*.log" -exec tee {} \; </dev/null'
 alias clearalllogs='sudo find / -name "*.log" -exec tee {} \; </dev/null'
 
