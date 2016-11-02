@@ -17,6 +17,7 @@ binfiles:
   - makessl
   - docker-clean
   - pg_dump_url
+  - dummy-commit
   - github-downloads
   - git/git-prune-all
   - git/git-tarball
