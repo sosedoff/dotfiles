@@ -2,5 +2,4 @@
 
 echo $(date) > .dummy
 git add .
-git commit -am "Dummy commit"
-git push
+git commit -am "Dummy commit $(date)"
