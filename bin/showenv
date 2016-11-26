@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+items = []
+
+`grep -rnw . -e "ENV"`.split("\n").each do |line|
+  if line =~ /ENV.fetch\(['"](\w+)['"]\)/ || line =~ /ENV\[['"](\w+)['"]\]/
+    items << $1
+  end
+end
+
+if items.size > 0
+  puts "Found these environment variables:"
+  puts items.uniq.sort
+else
+  puts "No mention of environment variables found"
+end

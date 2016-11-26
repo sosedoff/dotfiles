@@ -19,6 +19,7 @@ binfiles:
   - pg_dump_url
   - dummy-commit
   - github-downloads
+  - showenv
   - git/git-prune-all
   - git/git-tarball
   - git/git-track
