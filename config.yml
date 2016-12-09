@@ -20,6 +20,7 @@ binfiles:
   - dummy-commit
   - github-downloads
   - showenv
+  - ipinfo
   - git/git-prune-all
   - git/git-tarball
   - git/git-track
