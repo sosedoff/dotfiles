@@ -1,0 +1,10 @@
+#!/bin/bash
+
+ip=$1
+
+if [[ -z "$ip" ]]; then
+  echo "Need an IP"
+  exit 1
+fi
+
+curl -s http://ip-api.com/json/$ip | jq
