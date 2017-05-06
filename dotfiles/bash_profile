@@ -81,7 +81,6 @@ alias godev="cd ~/go/src/github.com/sosedoff"
 alias rs="rails server thin"
 alias rc="rails console"
 alias sl="rake db:schema:load RAILS_ENV=test"
-alias killspring="ps ax | grep spring | awk {'print $2'} | xargs kill"
 
 # SSH
 alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy && echo "Public key was copied into the clipboard."'
