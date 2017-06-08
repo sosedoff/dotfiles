@@ -21,6 +21,7 @@ binfiles:
   - github-downloads
   - showenv
   - ipinfo
+  - killspring
   - git/git-prune-all
   - git/git-tarball
   - git/git-track
