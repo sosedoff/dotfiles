@@ -16,7 +16,8 @@ binfiles:
   - ramfs
   - makessl
   - docker-clean
-  - pg_dump_url
+  - pg_url_dump
+  - pg_url_load
   - dummy-commit
   - github-downloads
   - showenv
