@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+database_url = ARGV.shift || ""
+
+if database_url.size == 0
+  STDERR.puts "Please provide database url"
+  exit 1
+end
+
+load_path = ARGV.shift
+if !load_path
+  STDERR.puts "Please provide load file path"
+  exit 1
+end
+load_path = File.expand_path(load_path)
+
+require "uri"
+url = URI.parse(database_url)
+db = url.path[1..-1]
+
+vars = [
+  "PGHOST=#{url.host}",
+  "PGPORT=#{url.port}",
+  "PGUSER=#{url.user}",
+  "PGPASSWORD=#{url.password}",
+  "PGDATABASE=#{db}"
+]
+
+cmd = vars.join(" ") + " psql #{db} < #{load_path}"
+
+if ENV["DEBUG"]
+  puts cmd
+else
+  puts "Loading database from #{load_path}"
+  exec(cmd)
+  puts "Done!"
+end
