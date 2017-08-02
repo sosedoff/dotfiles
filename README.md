@@ -35,9 +35,11 @@ General purpose:
 
 Git extras:
 
-- `feature`      - Start a new git branch or checkout existing.
-- `master`       - Switch to master branch
-- `develop`      - Switch to development branch
-- `git track`    - Setup remote git branch tracking
-- `git tarball`  - Package git HEAD into tar.gz archive
-- `git branches` - List all git branches and their diff stats with current branch
+- `feature`          - Start a new git branch or checkout existing.
+- `master`           - Switch to master branch
+- `develop`          - Switch to development branch
+- `git track`        - Setup remote git branch tracking
+- `git tarball`      - Package git HEAD into tar.gz archive
+- `git branches`     - List all git branches and their diff stats with current branch
+- `git merge-repo`   - Import another repos to a subdirectory of the current repo
+- `git clean-merged` - Remove any local branches that were merged into master

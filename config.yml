@@ -29,3 +29,4 @@ binfiles:
   - git/git-branches
   - git/git-clean-merged
   - git/git-churn
+  - git/git-merge-repo
