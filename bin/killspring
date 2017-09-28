@@ -1,3 +1,4 @@
 #!/bin/bash
 
-ps aux | grep spring | awk {'print $2'} | xargs kill
+# This script finds all Spring processes and terminates them
+ps aux | grep [s]pring | awk {'print $2'} | xargs kill
