@@ -44,6 +44,7 @@ alias gdc='git diff --cached'
 alias gl='git sl'
 alias gp='git push'
 alias gh="git log --pretty=format:\"'%cd','%cn','%s'\""
+alias gb="git branches"
 
 # Git branches
 alias master='git checkout master'
