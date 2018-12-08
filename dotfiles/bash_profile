@@ -1,10 +1,7 @@
 # Set my favorite editor
 export EDITOR="/usr/bin/nano"
 
-# export Python
-export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
-
-# Export GO stuff
+# Go home
 export GOPATH=$HOME/go
 
 # Export binary paths
