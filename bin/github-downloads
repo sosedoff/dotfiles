@@ -3,6 +3,7 @@
 require "net/http"
 require "uri"
 require "json"
+require "time"
 
 name = ARGV.shift
 url  = "https://api.github.com/repos/#{name}/releases"
@@ -11,10 +12,12 @@ uri  = URI(url)
 total = 0
 resp = JSON.load(Net::HTTP.get(uri))
 
-resp.each do |rel|
+resp.reverse.each do |rel|
+  d = Time.parse(rel["created_at"]).strftime("%Y-%m-%d")
   num = rel["assets"].map { |a| a["download_count"] }.reduce(:+)
   total += num
-  puts "-> #{rel["name"]}: #{num}"
+
+  printf "%s - %s : %s\n", d, rel["name"], num
 end
 
 puts "Total downloads: #{total}"
