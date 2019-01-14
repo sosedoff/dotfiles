@@ -6,7 +6,7 @@ require "json"
 require "time"
 
 name = ARGV.shift
-url  = "https://api.github.com/repos/#{name}/releases"
+url  = "https://api.github.com/repos/sosedoff/#{name}/releases"
 uri  = URI(url)
 
 total = 0

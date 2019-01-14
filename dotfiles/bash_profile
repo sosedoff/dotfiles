@@ -105,3 +105,10 @@ ulimit -n 8096
 
 # Load all package managers
 source "$HOME/.managers"
+
+
+# ------------------------------------------------------------------------------
+
+how() {
+  curl cht.sh/$1
+}
