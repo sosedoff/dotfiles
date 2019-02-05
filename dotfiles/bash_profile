@@ -94,7 +94,6 @@ alias localip="ifconfig -a | grep 'inet ' | grep broadcast | awk '{ print $2 }' 
 alias clearlogs='find ~ -name "*.log" -exec tee {} \; </dev/null'
 alias clearalllogs='sudo find / -name "*.log" -exec tee {} \; </dev/null'
 alias cleardns='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
-alias help="curl cht.sh/$1"
 
 # :)
 alias "please"="sudo"
@@ -108,3 +107,7 @@ ulimit -n 8096
 source "$HOME/.managers"
 
 # ------------------------------------------------------------------------------
+
+how() {
+  curl cht.sh/$1
+}
