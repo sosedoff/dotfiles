@@ -1,0 +1,43 @@
+{
+  "window.zoomLevel": 0,
+  "editor.fontSize": 14,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  "editor.rulers": [
+    80
+  ],
+  "editor.fontFamily": "SF Mono",
+  "workbench.iconTheme": "vs-minimal",
+  "editor.minimap.enabled": false,
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#21252D",
+    "sideBar.background": "#222830",
+    "editor.background": "#21252D",
+    "tab.inactiveBackground": "#121820",
+    "titleBar.activeBackground": "#121820",
+    "statusBar.background": "#121820"
+  },
+  "workbench.activityBar.visible": true,
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.autoIndent": true,
+  "editor.showFoldingControls": "mouseover",
+  "editor.wrappingIndent": "same",
+  "editor.lineNumbers": "on",
+  "editor.matchBrackets": true,
+  "editor.mouseWheelScrollSensitivity": 0,
+  "editor.trimAutoWhitespace": true,
+  "editor.useTabStops": true,
+  "editor.wordWrap": "off",
+  "editor.formatOnPaste": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.snippetSuggestions": "top",
+  "extensions.ignoreRecommendations": true,
+  "workbench.colorTheme": "Base16 Ocean Dark",
+  "workbench.startupEditor": "newUntitledFile"
+}
