@@ -99,6 +99,30 @@ namespace :sublime do
   end
 end
 
+task :vscode do
+  system %[mkdir -p ~/.vscode]
+  system %[cat ./vscode/settings.json > ~/Library/Application\ Support/Code/User/settings.json]
+
+  extensions = [
+    "andyyaldoo.vscode-json",
+    "esbenp.prettier-vscode",
+    "mauve.terraform",
+    "ms-vscode.Go",
+    "ms-vscode.sublime-keybindings",
+    "sianglim.slim",
+    "viatsko.theme-base16-ocean-dark",
+    "wholroyd.HCL"
+  ]
+
+  extensions.each do |ext|
+    puts "----> Installing: #{ext}"
+    system %[code --install-extension #{ext}]
+  end
+end
+
+task :iterm2 do  
+end
+
 desc "Install all settings"
 task :install do
   Rake::Task['dotfiles'].invoke
