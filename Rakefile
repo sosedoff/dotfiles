@@ -1,6 +1,7 @@
 require 'yaml'
 require 'fileutils'
 require 'pp'
+require "shellwords"
 
 DOTFILES_HOME = ENV['HOME']
 DOTFILES_ROOT = File.dirname(__FILE__)
@@ -99,24 +100,33 @@ namespace :sublime do
   end
 end
 
-task :vscode do
-  system %[mkdir -p ~/.vscode]
-  system %[cat ./vscode/settings.json > ~/Library/Application\ Support/Code/User/settings.json]
+namespace :vscode do
+  desc "Install Visual Studio Code settings"
+  task :settings do
+    base_path = File.expand_path("~")
+    code_install_path = Shellwords.escape("#{base_path}/Library/Application\ Support/Code/User")
 
-  extensions = [
-    "andyyaldoo.vscode-json",
-    "esbenp.prettier-vscode",
-    "mauve.terraform",
-    "ms-vscode.Go",
-    "ms-vscode.sublime-keybindings",
-    "sianglim.slim",
-    "viatsko.theme-base16-ocean-dark",
-    "wholroyd.HCL"
-  ]
+    puts "Installing VSCode settings..."
+    system %[mkdir -p ~/.vscode]
+    system %[cat ./vscode/settings.json > #{code_install_path}/settings.json]
+  end
 
-  extensions.each do |ext|
-    puts "----> Installing: #{ext}"
-    system %[code --install-extension #{ext}]
+  task :extensions do
+    extensions = [
+      "andyyaldoo.vscode-json",
+      "esbenp.prettier-vscode",
+      "mauve.terraform",
+      "ms-vscode.Go",
+      "ms-vscode.sublime-keybindings",
+      "sianglim.slim",
+      "viatsko.theme-base16-ocean-dark",
+      "wholroyd.HCL"
+    ]
+
+    extensions.each do |ext|
+      puts "----> Installing: #{ext}"
+      system %[code --install-extension #{ext}]
+    end
   end
 end
 
