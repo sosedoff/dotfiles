@@ -39,5 +39,6 @@
   "editor.snippetSuggestions": "top",
   "extensions.ignoreRecommendations": true,
   "workbench.colorTheme": "Base16 Ocean Dark",
-  "workbench.startupEditor": "newUntitledFile"
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.fontWeight": "600"
 }
