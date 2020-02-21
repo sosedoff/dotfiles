@@ -26,7 +26,6 @@ binfiles:
   - git/git-prune-all
   - git/git-tarball
   - git/git-track
-  - git/git-branches
   - git/git-clean-merged
   - git/git-churn
   - git/git-merge-repo
