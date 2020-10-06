@@ -6,3 +6,10 @@
 
 # Ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# Load pyenv automatically by adding
+# the following to ~/.bashrc:
+
+export PATH="/Users/sosedoff/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
