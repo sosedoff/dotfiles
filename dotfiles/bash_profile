@@ -47,6 +47,7 @@ alias gb="git branches"
 
 # Git branches
 alias master='git checkout master'
+alias main='git checkout main'
 alias staging='git checkout staging'
 alias develop='git checkout develop'
 alias dev='git checkout develop'
