@@ -1,3 +1,6 @@
+# Latest OSX switched to zshell and prints out a warning
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # Set my favorite editor
 export EDITOR="/usr/bin/nano"
 
