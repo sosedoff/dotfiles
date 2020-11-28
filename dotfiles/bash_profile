@@ -60,7 +60,7 @@ alias bi="bundle install"
 alias bu="bundle update"
 
 # Bin shortcuts
-alias l="lunchy"
+alias l="lunchy-go"
 alias r="rake"
 alias v="vagrant"
 alias h="heroku"
