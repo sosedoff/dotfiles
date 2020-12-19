@@ -119,3 +119,4 @@ how() {
   curl cht.sh/$1
 }
 export PATH="/usr/local/opt/awscli@1/bin:$PATH"
+source "$HOME/.cargo/env"
