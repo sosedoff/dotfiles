@@ -1,7 +1,7 @@
 [user]
   name = Dan Sosedoff
   email = dan.sosedoff@gmail.com
-	signingkey = D282B164
+  signingkey = D282B164
 
 [github]
   user = sosedoff
@@ -58,5 +58,6 @@
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
+
 [commit]
-	gpgsign = true
+  gpgsign = true
