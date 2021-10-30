@@ -15,7 +15,11 @@ export PATH=/usr/local/heroku/bin:$PATH
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
-#eval `ssh-agent` && ssh-add
+# Cargo (Rust)
+. "$HOME/.cargo/env"
+
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # ------------------------------------------------------------------------------
 
@@ -37,7 +41,6 @@ fi
 alias ls='ls -G'
 alias la='ls -la'
 alias '..'='cd .. && echo "--> now at: $(pwd)"'
-alias o='cd ~/OpenSource'
 
 # Git
 alias gs='git st'
@@ -65,7 +68,6 @@ alias bu="bundle update"
 # Bin shortcuts
 alias l="lunchy-go"
 alias r="rake"
-alias v="vagrant"
 alias h="heroku"
 alias g="git"
 alias d="docker"
@@ -84,7 +86,7 @@ alias tf="terraform"
 alias kube="kubectl"
 
 # Rails
-alias rs="rails server thin"
+alias rs="rails server"
 alias rc="rails console"
 alias sl="rake db:schema:load RAILS_ENV=test"
 
@@ -119,5 +121,3 @@ source "$HOME/.managers"
 how() {
   curl cht.sh/$1
 }
-export PATH="/usr/local/opt/awscli@1/bin:$PATH"
-source "$HOME/.cargo/env"

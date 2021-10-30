@@ -60,4 +60,4 @@
   required = true
 
 [commit]
-  gpgsign = true
+  gpgsign = false
