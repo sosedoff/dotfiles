@@ -1,6 +1,5 @@
 {
-  "window.zoomLevel": 0,
-  "editor.fontSize": 14,
+  "editor.fontSize": 15,
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -40,5 +39,16 @@
   "extensions.ignoreRecommendations": true,
   "workbench.colorTheme": "Base16 Ocean Dark",
   "workbench.startupEditor": "newUntitledFile",
-  "editor.fontWeight": "600"
+  "editor.fontWeight": "600",
+  "telemetry.enableTelemetry": false,
+  "telemetry.enableCrashReporter": false,
+  "go.useLanguageServer": true,
+  "openapi.defaultPreviewRenderer": "redoc",
+  "markdown-preview-enhanced.liveUpdate": false,
+  "vs-kubernetes": {
+    "vscode-kubernetes.helm-path.mac": "/Users/sosedoff/.vs-kubernetes/tools/helm/darwin-amd64/helm",
+    "vscode-kubernetes.minikube-path.mac": "/Users/sosedoff/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
+  },
+  "files.insertFinalNewline": true,
+  "redhat.telemetry.enabled": false
 }
