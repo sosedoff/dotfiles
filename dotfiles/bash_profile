@@ -1,3 +1,6 @@
+# Set ulimit for all sessions
+ulimit -n 8096
+
 # Latest OSX switched to zshell and prints out a warning
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
@@ -14,12 +17,7 @@ export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/heroku/bin:$PATH
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
-
-# Cargo (Rust)
-. "$HOME/.cargo/env"
-
-# Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="/usr/local/opt/awscli@1/bin:$PATH"
 
 # ------------------------------------------------------------------------------
 
@@ -54,9 +52,6 @@ alias gb="git branches"
 # Git branches
 alias master='git checkout master'
 alias main='git checkout main'
-alias staging='git checkout staging'
-alias develop='git checkout develop'
-alias dev='git checkout develop'
 alias feature='git checkout -b $1'
 
 # Bundler aliases
@@ -68,19 +63,11 @@ alias bu="bundle update"
 # Bin shortcuts
 alias l="lunchy-go"
 alias r="rake"
-alias h="heroku"
 alias g="git"
 alias d="docker"
 alias dc="docker-compose"
-alias dm="docker-machine"
-alias z="zeus"
-alias zt="zeus rspec spec/"
-alias zpt="zeus parallel_rspec spec/"
 alias gv="gem-version"
 alias ss="python -m SimpleHTTPServer"
-alias es="open ~/Projects/elasticsearch-head/index.html"
-alias github="/Applications/GitHub.app/Contents/MacOS/github_cli"
-alias devchrome="open -a Google\ Chrome --args --disable-web-security"
 alias godev="cd ~/go/src/github.com/sosedoff"
 alias tf="terraform"
 alias kube="kubectl"
@@ -88,13 +75,10 @@ alias kube="kubectl"
 # Rails
 alias rs="rails server"
 alias rc="rails console"
-alias sl="rake db:schema:load RAILS_ENV=test"
+alias rsl="rake db:schema:load RAILS_ENV=test"
 
 # SSH
 alias copyssh='cat ~/.ssh/id_rsa.pub | pbcopy && echo "Public key was copied into the clipboard."'
-
-# Sublime Text 3
-alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 
 # Other stuff
 alias flushredis="redis-cli flushall"
@@ -108,15 +92,9 @@ alias cleardns='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
 # :)
 alias "please"="sudo"
 
-# ------------------------------------------------------------------------------
-
-# Set ulimit for all sessions
-ulimit -n 8096
-
 # Load all package managers
 source "$HOME/.managers"
-
-# ------------------------------------------------------------------------------
+source "$HOME/.cargo/env"
 
 how() {
   curl cht.sh/$1
