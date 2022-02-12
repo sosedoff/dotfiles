@@ -9,4 +9,4 @@
 
 # Python
 export PATH="/Users/sosedoff/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
+#eval "$(pyenv init -)"
