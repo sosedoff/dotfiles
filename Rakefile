@@ -130,7 +130,7 @@ namespace :vscode do
   end
 end
 
-task :iterm2 do  
+task :iterm2 do
 end
 
 desc "Install all settings"

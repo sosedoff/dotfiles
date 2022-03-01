@@ -1,7 +1,7 @@
 [user]
   name = Dan Sosedoff
   email = dan.sosedoff@gmail.com
-  signingkey = D282B164
+	signingkey = 070C4221E4A6BE40
 
 [github]
   user = sosedoff
