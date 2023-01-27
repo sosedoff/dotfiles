@@ -7,28 +7,17 @@
     "**/CVS": true,
     "**/.DS_Store": true
   },
-  "editor.rulers": [
-    80
-  ],
+  "editor.rulers": [80],
   "editor.fontFamily": "SF Mono",
-  "workbench.iconTheme": "vs-minimal",
   "editor.minimap.enabled": false,
-  "workbench.colorCustomizations": {
-    "activityBar.background": "#21252D",
-    "sideBar.background": "#222830",
-    "editor.background": "#21252D",
-    "tab.inactiveBackground": "#121820",
-    "titleBar.activeBackground": "#121820",
-    "statusBar.background": "#121820"
-  },
   "workbench.activityBar.visible": true,
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
-  "editor.autoIndent": true,
+  "editor.autoIndent": "full",
   "editor.showFoldingControls": "mouseover",
   "editor.wrappingIndent": "same",
   "editor.lineNumbers": "on",
-  "editor.matchBrackets": true,
+  "editor.matchBrackets": "always",
   "editor.mouseWheelScrollSensitivity": 0,
   "editor.trimAutoWhitespace": true,
   "editor.useTabStops": true,
@@ -37,18 +26,58 @@
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.snippetSuggestions": "top",
   "extensions.ignoreRecommendations": true,
-  "workbench.colorTheme": "Base16 Ocean Dark",
   "workbench.startupEditor": "newUntitledFile",
-  "editor.fontWeight": "600",
-  "telemetry.enableTelemetry": false,
-  "telemetry.enableCrashReporter": false,
+  "editor.fontWeight": "500",
   "go.useLanguageServer": true,
-  "openapi.defaultPreviewRenderer": "redoc",
+  "gopls": {},
   "markdown-preview-enhanced.liveUpdate": false,
   "vs-kubernetes": {
     "vscode-kubernetes.helm-path.mac": "/Users/sosedoff/.vs-kubernetes/tools/helm/darwin-amd64/helm",
     "vscode-kubernetes.minikube-path.mac": "/Users/sosedoff/.vs-kubernetes/tools/minikube/darwin-amd64/minikube"
   },
   "files.insertFinalNewline": true,
-  "redhat.telemetry.enabled": false
+  "redhat.telemetry.enabled": false,
+  "go.toolsManagement.autoUpdate": true,
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      "source.formatAll.terraform": true
+    }
+  },
+  "[terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      "source.formatAll.terraform": true
+    }
+  },
+  "[yaml]": {
+    "editor.autoIndent": "advanced",
+    "editor.formatOnSave": false
+  },
+  "yaml.customTags": [],
+  "html.format.unformatted": "",
+  "[dockercompose]": {
+    "editor.autoIndent": "advanced",
+    "editor.formatOnSave": false
+  },
+  "yaml.format.proseWrap": "never",
+  "yaml.format.enable": false,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {},
+  "helm-intellisense.customValueFileNames": ["values.yaml", "*.yaml.tpl"],
+  "go.languageServerFlags": [],
+  "editor.language.brackets": [],
+  "telemetry.telemetryLevel": "off",
+  "workbench.iconTheme": "vs-minimal",
+  "editor.indentSize": "tabSize",
+  "editor.renderWhitespace": "boundary",
+  "editor.guides.bracketPairs": "active",
+  "editor.bracketPairColorization.enabled": true,
+  "workbench.colorTheme": "Gruvbox Dark Hard",
+  "launch": {
+    "configurations": [],
+    "compounds": []
+  }
 }
