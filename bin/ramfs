@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 def ramfs_devices
-  `df | grep RAMFS`.
+  `df | grep ramfs`.
     strip.
     split("\n").
     map { |l| l.split(/\s{2,}/) }.
@@ -24,9 +24,9 @@ if command == "create"
   name         = ARGV.shift || "test"
   size         = Integer(ARGV.shift || 1024)
   size_sectors = size * 1024 * 1024 / 512
-  mount_point  = "/Volumes/RAMFS-#{name}".strip
+  mount_point  = "#{ENV["HOME"]}/ramfs/#{name}".strip
 
-  if File.exists?(mount_point)
+  if File.exist?(mount_point)
     puts "Mount point #{mount_point} already exists"
     exit 2
   end
@@ -69,7 +69,7 @@ end
 
 if command == "destroy"
   name        = ARGV.shift || "test"
-  mount_point = "/Volumes/RAMFS-#{name}".strip
+  mount_point = "#{ENV["HOME"]}/ramfs/#{name}".strip
 
   device = ramfs_devices.select { |d| d[:path] == mount_point }.first
 
@@ -80,7 +80,11 @@ if command == "destroy"
 
   puts "Unmounting #{mount_point}..."
   `diskutil unmount #{mount_point}`
+  `umount -f #{mount_point}`
 
   puts "Ejecting disk..."
   `diskutil eject #{device[:device]}`
+
+  puts "Removing the #{mount_point}..."
+  `rm -rf #{mount_point}`
 end
