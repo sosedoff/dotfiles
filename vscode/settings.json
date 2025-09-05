@@ -7,7 +7,9 @@
     "**/CVS": true,
     "**/.DS_Store": true
   },
-  "editor.rulers": [80],
+  "editor.rulers": [
+    80
+  ],
   "editor.fontFamily": "SF Mono",
   "editor.minimap.enabled": false,
   "workbench.activityBar.visible": true,
@@ -28,7 +30,6 @@
   "extensions.ignoreRecommendations": true,
   "workbench.startupEditor": "newUntitledFile",
   "editor.fontWeight": "500",
-  "go.useLanguageServer": true,
   "gopls": {},
   "markdown-preview-enhanced.liveUpdate": false,
   "vs-kubernetes": {
@@ -66,7 +67,10 @@
   "yaml.format.enable": false,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {},
-  "helm-intellisense.customValueFileNames": ["values.yaml", "*.yaml.tpl"],
+  "helm-intellisense.customValueFileNames": [
+    "values.yaml",
+    "*.yaml.tpl"
+  ],
   "go.languageServerFlags": [],
   "editor.language.brackets": [],
   "telemetry.telemetryLevel": "off",
@@ -79,5 +83,6 @@
   "launch": {
     "configurations": [],
     "compounds": []
-  }
+  },
+  "git.openRepositoryInParentFolders": "never"
 }
