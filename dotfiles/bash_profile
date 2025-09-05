@@ -70,7 +70,7 @@ alias g="git"
 alias d="docker"
 alias dc="docker-compose"
 alias gv="gem-version"
-alias ss="python -m SimpleHTTPServer"
+alias ss="python3 -m http.server"
 alias godev="cd ~/go/src/github.com/sosedoff"
 alias tf="terraform"
 alias kube="kubectl"
@@ -97,15 +97,10 @@ alias "please"="sudo"
 
 # Load all package managers
 source "$HOME/.managers"
-source "$HOME/.cargo/env"
 
 how() {
   curl cht.sh/$1
 }
-
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/sosedoff/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/Users/sosedoff/Downloads/google-cloud-sdk/path.bash.inc'; fi
@@ -114,7 +109,13 @@ if [ -f '/Users/sosedoff/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/U
 if [ -f '/Users/sosedoff/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/sosedoff/Downloads/google-cloud-sdk/completion.bash.inc'; fi
 
 # Bash completion
-# [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
 # Direnv
 eval "$(direnv hook bash)"
+
+# Orbstack (Docker)
+source ~/.orbstack/shell/init.bash 2>/dev/null || :
+
+# K8s
+source <(kubectl completion bash)
