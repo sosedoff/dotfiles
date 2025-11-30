@@ -11,6 +11,7 @@
 
 [core]
   editor = nano
+  excludesFile = ~/.gitignore
 
 [alias]
   co           = checkout
